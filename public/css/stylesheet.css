@@ -1,0 +1,47 @@
+.menu {
+	height: 100%;
+	float: left;
+	margin: 0;
+	top: 0;
+	background-color: #39393A;
+	z-index: 1000;
+	width: 25%;
+	min-width: 220px;
+	color: #C9CAD4;
+}
+
+.menu > ul > li {
+	margin-bottom: 10px;
+}
+
+.menuitem {
+	width: 100%;
+	padding: 5px;
+	color: #838b8f;
+	padding-left: 20px;
+}
+
+.menuitem:hover {
+	color: #FFFFFF;
+}
+
+.menuitem:active {
+	border-left: 4px solid #AC181E;
+}
+
+.titulomenu {
+	display: table;
+	margin: auto;
+	font-size: 20rem;
+}
+
+.titulo {
+	font-size: 100px;
+	user-select: none;
+	cursor: default;
+}
+
+.content {
+	float: left;
+    padding: 10px;
+}

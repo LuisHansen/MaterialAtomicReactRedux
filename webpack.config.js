@@ -1,23 +1,15 @@
-var webpack = require('webpack');
-
 module.exports = {
-	devServer: {
-		inline: true,
-		contentBase: './public',
-		port: 8080
-	},
-	entry: './app/index.js',
+	context: __dirname + "/app",
+	entry: "./index.js",
 	output: {
-		path: 'public'
+		filename: "bundle.js",
+		path: __dirname + "/public",
 	},
 	module: {
 		loaders: [{
 			test: /\.js$/,
 			exclude: /node_modules/,
-			loader: 'babel-loader',
-			query: {
-				presets: ['es2015', 'react']
-			}
+			loaders: ['react-hot-loader', 'babel-loader?presets[]=es2015,presets[]=react']
 		}]
 	}
 };
