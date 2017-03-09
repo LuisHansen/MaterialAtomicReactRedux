@@ -45,3 +45,20 @@
 	float: left;
     padding: 10px;
 }
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+.spinner {
+	position: relative;
+	border: 0.6em solid #C9CAD4;
+	border-bottom-color: #AC181E;
+	border-radius: 50%;
+	margin: 0 auto;
+	width: 3em;
+	height: 3em;
+	animation: spin 1s cubic-bezier(.26,2.5,.22,.24) infinite;
+	margin: 10px;	
+}
