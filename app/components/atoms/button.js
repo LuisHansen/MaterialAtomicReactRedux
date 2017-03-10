@@ -1,15 +1,17 @@
 import React from 'react';
+import { PropTypes } from 'react'
 
 const Button = React.createClass({
-	click: function () {
-		console.log("Clicou");
-	},
 	render : function() {
 		let classe = "waves-effect waves-light btn " + this.props.className;
 		return (
-		<a className={classe} onClick={this.click} >{this.props.children}</a>
+		<a className={classe} onClick={this.props.click}>{this.props.children}</a>
 		);
 	}
 });
+
+Button.propTypes = {
+	click: PropTypes.func
+}
 
 export default Button;
