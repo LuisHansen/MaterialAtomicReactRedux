@@ -1,10 +1,14 @@
 import React from 'react';
 
 const Table = React.createClass({
+	componentDidMount() {
+		let id = '#' + this.props.id;
+		console.log(this);
+		$(id).DataTable(this.props.config);
+	},
 	render : function() {
-		let classe = "spinner " + this.props.className;
 		return (
-		<div className={classe}></div>
+			<table id={this.props.id}>{this.props.children}</table>
 		);
 	}
 });
