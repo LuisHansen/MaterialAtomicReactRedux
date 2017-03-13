@@ -49,5 +49,5 @@ export default function (state=initial, action) {
 			break;
 	}
 
-	return initial;
+	return state;
 }

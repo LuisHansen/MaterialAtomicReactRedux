@@ -5,8 +5,7 @@
 	top: 0;
 	background-color: #39393A;
 	z-index: 1000;
-	width: 25%;
-	min-width: 220px;
+	width: 220px;
 	color: #C9CAD4;
 }
 
@@ -25,7 +24,14 @@
 	color: #FFFFFF;
 }
 
-.menuitem:active {
+.center {
+	position: relative;
+	margin: auto;
+	display: block;
+	text-align: center;
+}
+
+.active {
 	border-left: 4px solid #AC181E;
 }
 

@@ -13,7 +13,6 @@ const Graph = React.createClass({
 	componentDidMount: function() {
 		var ctx = document.getElementById(this.props.id);
 		this.state.graph = new Chart(ctx, this.props.config);
-		console.log(this.state);
 	},
 	render : function() {
 		return (

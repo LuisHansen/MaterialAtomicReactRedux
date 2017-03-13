@@ -1,13 +1,12 @@
 import React from 'react';
 
 const MenuItem = React.createClass({
-	click: function () {
-		console.log("Clicou");
-	},
 	render : function() {
 		let classe = "waves-effect waves-light menuitem " + this.props.className;
+		if (this.props.active)
+			classe += " active";
 		return (
-		<a className={classe} onClick={this.click} >{this.props.children}</a>
+		<a className={classe} onClick={this.props.click} >{this.props.children}</a>
 		);
 	}
 });

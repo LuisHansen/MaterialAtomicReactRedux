@@ -12,4 +12,5 @@ A ideia é poder transformá-lo num boilerplate no futuro.
 O projeto já compilado está na pasta public. Para compilar, basta rodar ```$ webpack```.
 
 ##Testes
-Usarão as bibliotecas ```expect``` e ```deepFreeze```, mas ainda no foram implementados. 
+Já foram implementados testes usando ```Jest``` . Estão localizados nas subpastas ```tests```.
+Mais testes futuros usarão as bibliotecas ```expect``` e ```deepFreeze```.

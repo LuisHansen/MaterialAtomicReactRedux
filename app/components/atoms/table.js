@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Spinner = React.createClass({
+const Table = React.createClass({
 	render : function() {
 		let classe = "spinner " + this.props.className;
 		return (
@@ -9,4 +9,4 @@ const Spinner = React.createClass({
 	}
 });
 
-export default Spinner;
+export default Table;

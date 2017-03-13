@@ -6,7 +6,7 @@ const IconMenu = React.createClass({
 	render : function() {
 		let classe = this.props.className;
 		return (
-		<MenuItem className={classe}>
+		<MenuItem className={classe} click={this.props.click} active={this.props.active}>
 			<Icon className="left">{this.props.icon}</Icon>
 			{this.props.children}
 		</MenuItem>
