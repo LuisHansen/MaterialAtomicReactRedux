@@ -4,6 +4,7 @@ import Icon from '../atoms/icon'
 import Spinner from '../atoms/spinner'
 import IconButton from '../molecules/iconButton'
 import Graph from '../atoms/graph'
+import Tooltip from '../atoms/tooltip'
 import { connect } from 'react-redux'
 import { changeChartType } from '../../actions/index'
 import { bindActionCreators } from 'redux'
@@ -14,7 +15,7 @@ const Home = React.createClass({
 		<div>
 			<Button click={() => this.props.changeChartType(this.props.graphs.type)}>Click me</Button>
 			<Icon>add</Icon>
-			<IconButton icon="add">Icon button</IconButton>
+			<Tooltip data_position="right" data_tooltip="I am tooltip"><IconButton icon="add">Icon button</IconButton></Tooltip>
 			<Spinner></Spinner>
 			<Graph id="grafico1" width="200" height="200" config={this.props.graphs}></Graph>
 		</div>

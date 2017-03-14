@@ -24,6 +24,10 @@
 	color: #FFFFFF;
 }
 
+.btn {
+	background-color: #AC181E !important;
+}
+
 .center {
 	position: relative;
 	margin: auto;
