@@ -6,15 +6,16 @@ import IconButton from '../molecules/iconButton'
 import Graph from '../atoms/graph'
 import Table from '../atoms/table'
 import { connect } from 'react-redux'
-import { changeChartType } from '../../actions/index'
+import { loadTableData } from '../../actions/index'
 import { bindActionCreators } from 'redux'
 
 
 const Payments = React.createClass({
 	render : function() { return (
 		<div>
+			<Button click={() => {this.props.loadTableData()}}>Load data</Button>
 			<Spinner className="center"></Spinner>
-			<Table id="table1">
+			<Table id="table1" config={this.props.table}>
 				<thead>
 					<tr>
 						<td>Testing</td>
@@ -29,9 +30,14 @@ const Payments = React.createClass({
 	}
 });
 
-
-function mapDispatcherToProps(dispatch) {
-	
+function mapStateToProps(state) {
+	return {
+		table: state.table
+	}
 }
 
-export default connect(null, null)(Payments);
+function mapDispatcherToProps(dispatch) {
+	return bindActionCreators({ loadTableData: loadTableData }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatcherToProps)(Payments);

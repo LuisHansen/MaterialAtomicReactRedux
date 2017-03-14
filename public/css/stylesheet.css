@@ -35,13 +35,13 @@
 	border-left: 4px solid #AC181E;
 }
 
-.titulomenu {
+.menutitle {
 	display: table;
 	margin: auto;
 	font-size: 20rem;
 }
 
-.titulo {
+.title {
 	font-size: 100px;
 	user-select: none;
 	cursor: default;
@@ -52,19 +52,38 @@
     padding: 10px;
 }
 
-@keyframes spin {
-	0% { transform: rotate(0deg); }
-	100% { transform: rotate(360deg); }
+.spin-container {
+	padding: 10px;
 }
 
 .spinner {
-	position: relative;
-	border: 0.6em solid #C9CAD4;
-	border-bottom-color: #AC181E;
-	border-radius: 50%;
-	margin: 0 auto;
-	width: 3em;
-	height: 3em;
-	animation: spin 1s cubic-bezier(.26,2.5,.22,.24) infinite;
-	margin: 10px;	
+  animation: rotator 1.4s linear infinite;
+}
+
+@keyframes rotator {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(270deg); }
+}
+
+.path {
+  stroke-dasharray: 187;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+}
+
+@keyframes colors {
+	0%, 100% { stroke:  #AC181E; }
+}
+
+@keyframes dash {
+ 0% { stroke-dashoffset: 187; }
+ 50% {
+   stroke-dashoffset: 46.75;
+   transform:rotate(135deg);
+ }
+ 100% {
+   stroke-dashoffset: 187;
+   transform:rotate(450deg);
+ }
 }

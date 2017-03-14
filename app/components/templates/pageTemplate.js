@@ -8,7 +8,7 @@ const Page = React.createClass({
 	render : function() { 
 		return (
 		<div>
-			<Menu menu={this.props.menu}><Icon className="titulo">{this.props.page.icon}</Icon></Menu>
+			<Menu menu={this.props.menu}><Icon className="title">{this.props.page.icon}</Icon></Menu>
 			<div className="content">
 				<h1>{this.props.page.title}</h1>
 				{this.props.children}

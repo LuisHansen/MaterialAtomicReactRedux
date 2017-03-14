@@ -12,9 +12,9 @@ import { bindActionCreators } from 'redux'
 const Home = React.createClass({
 	render : function() { return (
 		<div>
-			<Button click={() => this.props.changeChartType(this.props.graphs.type)}>Clique</Button>
+			<Button click={() => this.props.changeChartType(this.props.graphs.type)}>Click me</Button>
 			<Icon>add</Icon>
-			<IconButton icon="add">Botão com ícone</IconButton>
+			<IconButton icon="add">Icon button</IconButton>
 			<Spinner></Spinner>
 			<Graph id="grafico1" width="200" height="200" config={this.props.graphs}></Graph>
 		</div>

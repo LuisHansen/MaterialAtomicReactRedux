@@ -23,10 +23,12 @@ const Menu = React.createClass({
 	render : function() {
 		if (this.props.menu.pages.length == 0) {
 			setTimeout(() => {
-				this.props.loadMenu();
+				this.props.loadMenu(); // Simulate async data loading
 			}, 3000);
 			return (
 				<div className="menu">
+					<br />
+					<br />
 					<center><Spinner /></center>
 				</div>
 			)
@@ -34,7 +36,7 @@ const Menu = React.createClass({
 		return (
 		<div className="menu">
 			<ul>
-				<li className="titulomenu">
+				<li className="menutitle">
 					<h3>{this.props.children}</h3>
 				</li>
 				{this.populateMenu(this)}

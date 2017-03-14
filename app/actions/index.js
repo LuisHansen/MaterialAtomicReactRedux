@@ -19,4 +19,11 @@ const loadMenu = () => {
 	};
 }
 
-export {changeChartType, menuClick, loadMenu}
+const loadTableData = () => {
+	return {
+		type: 'LOAD_TABLE',
+		payload: null
+	};
+}
+
+export {changeChartType, menuClick, loadMenu, loadTableData}
