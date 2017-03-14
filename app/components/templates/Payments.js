@@ -5,6 +5,7 @@ import Spinner from '../atoms/spinner'
 import IconButton from '../molecules/iconButton'
 import Graph from '../atoms/graph'
 import Table from '../atoms/table'
+import Card from '../atoms/card'
 import { connect } from 'react-redux'
 import { loadTableData } from '../../actions/index'
 import { bindActionCreators } from 'redux'
@@ -25,6 +26,7 @@ const Payments = React.createClass({
 				<tbody>
 				</tbody>
 			</Table>
+			<Card><title>Card title</title><p>Card content.</p><p>Can be anything.</p></Card>
 		</div>
 		);
 	}
