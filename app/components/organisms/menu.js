@@ -20,6 +20,9 @@ const Menu = React.createClass({
 		});
 		return menu;
 	},
+	componentDidUpdate() {
+		$('.loading').fadeOut();
+	},
 	render : function() {
 		if (this.props.menu.pages.length == 0) {
 			setTimeout(() => {
@@ -27,14 +30,21 @@ const Menu = React.createClass({
 			}, 3000);
 			return (
 				<div className="menu">
-					<br />
-					<br />
-					<center><Spinner /></center>
+					<div className="loading">
+						<br />
+						<br />
+						<center><Spinner /></center>
+					</div>
 				</div>
 			)
 		}
 		return (
 		<div className="menu">
+			<div className="loading">
+				<br />
+				<br />
+				<center><Spinner /></center>
+			</div>
 			<ul>
 				<li className="menutitle">
 					<h3>{this.props.children}</h3>

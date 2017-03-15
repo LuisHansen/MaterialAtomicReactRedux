@@ -5,6 +5,13 @@ const changeChartType = (current) => {
 	};
 }
 
+const changeChartColors = (mono) => {
+	return {
+		type: 'CHART_COLORS',
+		payload: mono
+	};
+}
+
 const menuClick = (page) => {
 	return {
 		type: 'MENU',
@@ -26,4 +33,4 @@ const loadTableData = () => {
 	};
 }
 
-export {changeChartType, menuClick, loadMenu, loadTableData}
+export {changeChartType, changeChartColors, menuClick, loadMenu, loadTableData}

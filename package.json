@@ -20,11 +20,13 @@
   "dependencies": {
     "babel-polyfill": "^6.23.0",
     "chart.js": "^2.5.0",
+    "materialize": "^1.0.0",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
     "redux": "^3.6.0",
+    "redux-form": "^6.5.0",
     "sweetalert2": "^6.4.3"
   }
 }

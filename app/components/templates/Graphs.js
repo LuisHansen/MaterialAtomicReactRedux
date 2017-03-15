@@ -6,17 +6,22 @@ import IconButton from '../molecules/iconButton'
 import Graph from '../atoms/graph'
 import Tooltip from '../atoms/tooltip'
 import { connect } from 'react-redux'
-import { changeChartType } from '../../actions/index'
+import { changeChartColors } from '../../actions/index'
 import { bindActionCreators } from 'redux'
+import ChartControlForm from '../organisms/chartControlForm'
 
 
 const Home = React.createClass({
+	handleSubmit: function(values) {
+		console.log("Enviado");
+		console.log(values);
+		if (values) {
+			this.props.changeChartColors(values.opcao ? "mono" : "colors");
+		}
+  	},
 	render : function() { return (
 		<div>
-			<Button click={() => this.props.changeChartType(this.props.graphs.type)}>Click me</Button>
-			<Icon>add</Icon>
-			<Tooltip data_position="right" data_tooltip="I am tooltip"><IconButton icon="add">Icon button</IconButton></Tooltip>
-			<Spinner></Spinner>
+			<ChartControlForm mono={this.props.graphs.mono} onSubmit={this.handleSubmit}/>
 			<Graph id="grafico1" width="200" height="200" config={this.props.graphs}></Graph>
 		</div>
 		);
@@ -30,7 +35,8 @@ function mapStateToProps(state) {
 }
 
 function mapDispatcherToProps(dispatch) {
-	return bindActionCreators({ changeChartType: changeChartType }, dispatch);
+	return bindActionCreators({ changeChartColors: changeChartColors }, dispatch);
 }
+
 
 export default connect(mapStateToProps, mapDispatcherToProps)(Home);

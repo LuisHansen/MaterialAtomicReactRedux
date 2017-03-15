@@ -1,8 +1,10 @@
 import React from 'react'
-import Page from '../templates/pageTemplate'
-import Home from '../templates/Home'
-import Payments from '../templates/Payments'
 import { connect } from 'react-redux'
+import Graphs from '../templates/Graphs'
+import Home from '../templates/Home'
+import Nature from '../templates/Nature'
+import Page from '../templates/pageTemplate'
+import Payments from '../templates/Payments'
 
 function PageSwitcher(props) {
 	switch (props.page) {
@@ -11,6 +13,12 @@ function PageSwitcher(props) {
 		break;
 		case "Payments":
 			return <Payments />;
+		break;
+		case "Nature":
+			return <Nature />;
+		break;
+		case "Graphs":
+			return <Graphs />;
 		break;
 	}
 	

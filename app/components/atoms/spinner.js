@@ -4,9 +4,9 @@ const Spinner = React.createClass({
 	render : function() {
 		return (
 		  <div className="spin-container">
-		  		<svg className="spinner" width="50px" height="50px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-		  			<circle className="circ" fill="none" stroke="#c9cad4" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30"></circle>
-   					<circle className="path" fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30"></circle>
+		  		<svg className="spinner" width="58px" height="58px" viewBox="0 0 58 58" xmlns="http://www.w3.org/2000/svg">
+		  			<circle className="circ" fill="#f9f9f9" cx="29" cy="29" r="29"></circle>
+   					<circle className="path" fill="none" strokeWidth="3.5" strokeLinecap="round" cx="29" cy="29" r="14"></circle>
 				</svg>
 		  </div>
 		);

@@ -1,5 +1,5 @@
 var initial = {
-	pages: [{title: "Home", template: "Home", icon:"home"}, {title: "Payments", template: "Payments", icon: "credit_card"}, {title: "Nature", template: "Nature", icon: "nature_people"}]
+	pages: [{title: "Home", template: "Home", icon:"home"}, {title: "Payments", template: "Payments", icon: "credit_card"}, {title: "Nature", template: "Nature", icon: "nature_people"}, {title: "Charts", template: "Graphs", icon: "insert_chart"}]
 }
 
 var empty = { pages : [] };
