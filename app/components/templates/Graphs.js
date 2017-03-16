@@ -13,10 +13,8 @@ import ChartControlForm from '../organisms/chartControlForm'
 
 const Home = React.createClass({
 	handleSubmit: function(values) {
-		console.log("Enviado");
-		console.log(values);
 		if (values) {
-			this.props.changeChartColors(values.opcao ? "mono" : "colors");
+			this.props.changeChartColors(values.bnw ? "mono" : "colors");
 		}
   	},
 	render : function() { return (
