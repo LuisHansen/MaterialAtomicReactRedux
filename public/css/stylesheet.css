@@ -37,6 +37,7 @@
 
 .activeMenu {
 	border-left: 4px solid #AC181E;
+	color: white;
 }
 
 .menutitle {
@@ -54,6 +55,10 @@
 .content {
 	float: left;
     padding: 10px;
+    width: calc(100% - 220px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
 }
 
 .spin-container {
@@ -126,7 +131,7 @@ input:-webkit-autofill:focus {
 
 /* label color */
 .input-field label {
- color: #AC181E;
+ color: #4e4e4e;
 }
 /* label focus color */
 .input-field input[type=text]:focus + label {
@@ -153,6 +158,49 @@ input:-webkit-autofill:focus {
 }
 
 [type="checkbox"]:checked+label:before {
-    border-right: 2px solid #AC181E !important;
-    border-bottom: 2px solid #AC181E !important;
+    border-right: 2px solid #4caf50 !important;
+    border-bottom: 2px solid #4caf50 !important;
+}
+
+/*.card-title {
+	display: inline-flex !important;
+}*/
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.4);
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+/*::-webkit-scrollbar-thumb:hover {
+  background: #004b97;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #004b97;
+}*/
+::-webkit-scrollbar-track {
+  background: rgb(241,241,241);
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+/*::-webkit-scrollbar-track:hover {
+  background: #FFE0B2;
+}
+::-webkit-scrollbar-track:active {
+  background: #FFE0B2;
+}*/
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.danger {
+	color: #AC181E;
+	user-select: none;
+	cursor: pointer;
 }

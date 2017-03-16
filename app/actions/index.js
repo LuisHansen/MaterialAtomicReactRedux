@@ -33,4 +33,11 @@ const loadTableData = () => {
 	};
 }
 
-export {changeChartType, changeChartColors, menuClick, loadMenu, loadTableData}
+const applySettings = (settings) => {
+	return {
+		type: 'APPLY_SETTINGS',
+		payload: settings
+	};
+}
+
+export { changeChartType, changeChartColors, menuClick, loadMenu, loadTableData, applySettings }

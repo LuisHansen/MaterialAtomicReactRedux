@@ -13,14 +13,22 @@ import ChartControlForm from '../organisms/chartControlForm'
 
 const Home = React.createClass({
 	handleSubmit: function(values) {
-		if (values) {
+		if (values.bnw != undefined)
 			this.props.changeChartColors(values.bnw ? "mono" : "colors");
-		}
+		return false;
   	},
 	render : function() { return (
 		<div>
-			<ChartControlForm mono={this.props.graphs.mono} onSubmit={this.handleSubmit}/>
-			<Graph id="grafico1" width="200" height="200" config={this.props.graphs}></Graph>
+			<div className="row">
+			<div className="col s5">
+				<ChartControlForm mono={this.props.graphs.mono} onSubmit={this.handleSubmit}/>
+			</div>
+			</div>
+			<div className="row">
+				<div className="col s4">
+					<Graph id="grafico1" width="200" height="200" config={this.props.graphs}></Graph>
+				</div>
+			</div>
 		</div>
 		);
 	}

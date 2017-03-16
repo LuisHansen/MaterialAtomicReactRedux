@@ -17,7 +17,11 @@ const Home = React.createClass({
 			<Icon>add</Icon>
 			<Tooltip data_position="right" data_tooltip="I am tooltip"><IconButton icon="add">Icon button</IconButton></Tooltip>
 			<Spinner></Spinner>
-			<Graph id="grafico1" width="200" height="200" config={this.props.graphs}></Graph>
+			<div className="row">
+				<div className="col s6">
+					<Graph id="grafico1" width="200" height="200" config={this.props.graphs}></Graph>
+				</div>
+			</div>
 		</div>
 		);
 	}

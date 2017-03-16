@@ -70,16 +70,46 @@ export default function (state=initial, action) {
 				});
 				let data = Object.assign({},state.data);
 				data.datasets[0] = datasets;
+				let config = Object.assign({}, JSON.parse(localStorage.getItem("settings")), { mono: false });
+				localStorage.setItem("settings", JSON.stringify(config));
 				return Object.assign({},state, data, { mono: false });
 			} else if (action.payload == "mono") {
 				let datasets = Object.assign({},state.data.datasets[0],{
 					backgroundColor: [
-		                'rgba(0, 0, 0, 0.2)',
-		                'rgba(0, 0, 0, 0.2)',
-		                'rgba(0, 0, 0, 0.2)',
-		                'rgba(0, 0, 0, 0.2)',
-		                'rgba(0, 0, 0, 0.2)',
-		                'rgba(0, 0, 0, 0.2)'
+		                'rgba(255, 255, 255, 1)',
+		                'rgba(255, 255, 255, 1)',
+		                'rgba(255, 255, 255, 1)',
+		                'rgba(255, 255, 255, 1)',
+		                'rgba(255, 255, 255, 1)',
+		                'rgba(255, 255, 255, 1)'
+		            ],
+		            borderColor: [
+		                'rgba(0, 0, 0, 1)',
+		                'rgba(0, 0, 0, 1)',
+		                'rgba(0, 0, 0, 1)',
+		                'rgba(0, 0, 0, 1)',
+		                'rgba(0, 0, 0, 1)',
+		                'rgba(0, 0, 0, 1)'
+		            ]
+				});
+				let data = Object.assign({},state.data);
+				data.datasets[0] = datasets;
+				let config = Object.assign({}, JSON.parse(localStorage.getItem("settings")), { mono: true });
+				localStorage.setItem("settings", JSON.stringify(config));
+				return Object.assign({},state, data, { mono: true });
+			}
+			break;
+		case 'APPLY_SETTINGS':
+			let settings = action.payload;
+			if (settings.mono) {
+				let datasets = Object.assign({},state.data.datasets[0],{
+					backgroundColor: [
+		                'rgba(255, 255, 255, 1)',
+		                'rgba(255, 255, 255, 1)',
+		                'rgba(255, 255, 255, 1)',
+		                'rgba(255, 255, 255, 1)',
+		                'rgba(255, 255, 255, 1)',
+		                'rgba(255, 255, 255, 1)'
 		            ],
 		            borderColor: [
 		                'rgba(0, 0, 0, 1)',

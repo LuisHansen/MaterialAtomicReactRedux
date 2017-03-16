@@ -2,6 +2,9 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import Card from '../atoms/card'
 import Checkbox from '../atoms/checkbox'
+import Icon from '../atoms/icon'
+import Tooltip from '../atoms/tooltip'
+import IconTooltipped from '../molecules/iconTooltipped'
 
 var ChartControlForm = React.createClass({
 	componentDidMount() {
@@ -11,14 +14,16 @@ var ChartControlForm = React.createClass({
 		const { handleSubmit } = this.props;
 	    return (
 	    	<div>
-	    	<Card>
-	    	<title>Graph options</title>
-			<form onSubmit={handleSubmit}>
-				<Checkbox checked={this.props.mono} name="bnw">Black & white</Checkbox>
-				<br />
-				<button className="btn waves-effect waves-light" type="submit"><i className="material-icons right">send</i>Submit</button>
+	    	<form onSubmit={handleSubmit}>
+		    	<Card className="grey lighten-3">
+			    	<title><Icon className="left">settings</Icon>Graph options<IconTooltipped className="right danger" data_position="top" data_tooltip="Clear settings">delete</IconTooltipped></title>
+					<Checkbox checked={this.props.mono} name="bnw">Black & white</Checkbox>
+					<br />
+					<div id="action">
+						<button className="waves-effect waves-light btn-flat" type="submit"><i className="material-icons right">send</i>Submit</button>
+					</div>
+				</Card>
 			</form>
-			</Card>
 			</div>
 	    );
 	}

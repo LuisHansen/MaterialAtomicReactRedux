@@ -27,7 +27,7 @@ const Menu = React.createClass({
 		if (this.props.menu.pages.length == 0) {
 			setTimeout(() => {
 				this.props.loadMenu(); // Simulate async data loading
-			}, 3000);
+			}, 500);
 			return (
 				<div className="menu">
 					<div className="loading">

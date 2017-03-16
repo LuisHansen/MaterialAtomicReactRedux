@@ -1,10 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import Icon from '../atoms/icon'
 import Menu from '../organisms/menu'
-import { connect } from 'react-redux'
+import { applySettings } from '../../actions/index'
 
 
 const Page = React.createClass({
+	componentWillMount() {
+		// Check store settings
+		if (typeof(Storage) !== "undefined") {
+			this.props.applySettings(JSON.parse(localStorage.getItem("settings")));
+		}	
+	},
 	render : function() { 
 		return (
 		<div>
@@ -25,4 +33,8 @@ function mapStateToProps(state) {
 	}
 }
 
-export default connect(mapStateToProps)(Page);
+function mapDispatcherToProps(dispatch) {
+	return bindActionCreators({ applySettings: applySettings }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatcherToProps)(Page);
