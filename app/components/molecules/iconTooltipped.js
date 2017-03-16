@@ -3,7 +3,7 @@ import Icon from '../atoms/icon'
 import Tooltip from '../atoms/tooltip'
 
 const IconTooltipped = React.createClass({
-	render : function() {
+	render() {
 		let classe = this.props.className;
 		return (
 		<div className={classe}>

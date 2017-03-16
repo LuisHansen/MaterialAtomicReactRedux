@@ -10,11 +10,11 @@ const Graph = React.createClass({
 		this.state.graph.destroy();
 		return this.componentDidMount();
 	},
-	componentDidMount: function() {
+	componentDidMount() {
 		var ctx = document.getElementById(this.props.id);
 		this.state.graph = new Chart(ctx, this.props.config);
 	},
-	render : function() {
+	render() {
 		return (
 		<canvas id={this.props.id} width={this.props.width} height={this.props.height}></canvas>
 		);

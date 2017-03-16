@@ -101,7 +101,7 @@ export default function (state=initial, action) {
 			break;
 		case 'APPLY_SETTINGS':
 			let settings = action.payload;
-			if (settings.mono) {
+			if (settings && settings.mono) {
 				let datasets = Object.assign({},state.data.datasets[0],{
 					backgroundColor: [
 		                'rgba(255, 255, 255, 1)',

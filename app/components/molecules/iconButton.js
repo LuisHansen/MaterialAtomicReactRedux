@@ -3,7 +3,7 @@ import Button from '../atoms/button'
 import Icon from '../atoms/icon'
 
 const IconButton = React.createClass({
-	render : function() {
+	render() {
 		let classe = this.props.className;
 		return (
 		<Button className={classe}>

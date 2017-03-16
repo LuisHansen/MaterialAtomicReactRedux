@@ -12,7 +12,7 @@ import { bindActionCreators } from 'redux'
 
 
 const Payments = React.createClass({
-	render : function() { return (
+	render() { return (
 		<div>
 			<Button click={() => {this.props.loadTableData()}}>Load data</Button>
 			<Spinner className="center"></Spinner>

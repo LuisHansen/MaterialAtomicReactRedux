@@ -1,32 +1,33 @@
+"use strict";
+import 'babel-polyfill';
 import React from 'react';
 
 const Card = React.createClass({
-	render : function() {
+	render() {
+
 		let classe = "card " + this.props.className;
-		let title = [];
-		let inner = [];
-		let action = [];
-		for (var i = 0; i < this.props.children.length; i++) {
-			if ((typeof this.props.children[i]) == "object") {
-				console.log()
-				if (this.props.children[i].type == "title") {
-					title.push(<span key={i} className="card-title">{this.props.children[i].props.children}</span>);
-				} else if (this.props.children[i].props.id == "action") {
-					action.push(<div key={i} className="card-action">{this.props.children[i].props.children}</div>);
-				} else {
-					inner.push(this.props.children[i]);
-				}
+		let title = [], inner = [], action = [];
+
+    this.props.children
+      .filter(child => typeof child === 'object')
+      .map((child,i)=> {
+			if (child.type === 'title') {
+				title.push(<span key={i} className="card-title">{child.props.children}</span>);
+			} else if (child.props.id === 'action') {
+				action.push(<div key={i} className="card-action">{child.props.children}</div>);
+			} else {
+				inner.push(child);
 			}
-		}
-		return (
-		<div className={classe}>
-			<div className="card-content">
-				{title}
-				{inner}
-			</div>
-				{action}
-		</div>
-		);
+      });
+	return (
+	  <div className={classe}>
+		  <div className="card-content">
+			  {title}
+			  {inner}
+		  </div>
+			  {action}
+	  </div>
+	);
 	}
 });
 

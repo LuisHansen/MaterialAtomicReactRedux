@@ -2,7 +2,7 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 
 var TestForm = React.createClass({
-	render: function () {
+	render() {
 		const { handleSubmit } = this.props;
 	    return (
 			<form onSubmit={handleSubmit}>

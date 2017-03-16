@@ -10,12 +10,12 @@ var ChartControlForm = React.createClass({
 	componentDidMount() {
 		$('select').material_select();
 	},
-	render: function () {
+	render() {
 		const { handleSubmit } = this.props;
 	    return (
 	    	<div>
 	    	<form onSubmit={handleSubmit}>
-		    	<Card className="grey lighten-3">
+		    	<Card>
 			    	<title><Icon className="left">settings</Icon>Graph options<IconTooltipped className="right danger" data_position="top" data_tooltip="Clear settings">delete</IconTooltipped></title>
 					<Checkbox checked={this.props.mono} name="bnw">Black & white</Checkbox>
 					<br />

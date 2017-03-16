@@ -1,23 +1,23 @@
 import React from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import Button from '../atoms/button'
+import Graph from '../atoms/graph'
 import Icon from '../atoms/icon'
 import Spinner from '../atoms/spinner'
-import IconButton from '../molecules/iconButton'
-import Graph from '../atoms/graph'
 import Tooltip from '../atoms/tooltip'
-import { connect } from 'react-redux'
-import { changeChartColors } from '../../actions/index'
-import { bindActionCreators } from 'redux'
+import IconButton from '../molecules/iconButton'
 import ChartControlForm from '../organisms/chartControlForm'
+import { changeChartColors } from '../../actions/index'
 
 
 const Home = React.createClass({
-	handleSubmit: function(values) {
+	handleSubmit(values) {
 		if (values.bnw != undefined)
 			this.props.changeChartColors(values.bnw ? "mono" : "colors");
 		return false;
   	},
-	render : function() { return (
+	render() { return (
 		<div>
 			<div className="row">
 			<div className="col s5">

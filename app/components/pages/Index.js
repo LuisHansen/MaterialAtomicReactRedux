@@ -21,12 +21,12 @@ function PageSwitcher(props) {
 			return <Graphs />;
 		break;
 	}
-	
+
 	return null;
 }
 
 const Index = React.createClass({
-	render: function() {
+	render() {
 		return(
 			<Page>
 				<PageSwitcher page={this.props.page.template} />

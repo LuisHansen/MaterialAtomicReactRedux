@@ -10,8 +10,7 @@ const Menu = React.createClass({
 		let menu = [];
 		let index = 0;
 		object.props.menu.pages.forEach(function(page) {
-			let active = null;
-			(page.title == object.props.page.title) ? active = true : active = false;
+			let active = (page.title === object.props.page.title);
 			menu.push(
 				<li key={index++}>
 					<IconMenu active={active} click={() => object.props.menuClick(page)} className={object.props.className} icon={page.icon}>{page.title}</IconMenu>
@@ -23,7 +22,7 @@ const Menu = React.createClass({
 	componentDidUpdate() {
 		$('.loading').fadeOut();
 	},
-	render : function() {
+	render() {
 		if (this.props.menu.pages.length == 0) {
 			setTimeout(() => {
 				this.props.loadMenu(); // Simulate async data loading

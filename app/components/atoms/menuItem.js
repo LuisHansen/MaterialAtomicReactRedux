@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MenuItem = React.createClass({
-	render : function() {
+	render() {
 		let classe = "waves-effect waves-light menuitem " + this.props.className;
 		if (this.props.active)
 			classe += " activeMenu";

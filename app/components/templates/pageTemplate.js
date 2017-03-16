@@ -11,9 +11,9 @@ const Page = React.createClass({
 		// Check store settings
 		if (typeof(Storage) !== "undefined") {
 			this.props.applySettings(JSON.parse(localStorage.getItem("settings")));
-		}	
+		}
 	},
-	render : function() { 
+	render() {
 		return (
 		<div>
 			<Menu menu={this.props.menu}><Icon className="title">{this.props.page.icon}</Icon></Menu>

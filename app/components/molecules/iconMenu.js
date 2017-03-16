@@ -3,7 +3,7 @@ import MenuItem from '../atoms/menuItem'
 import Icon from '../atoms/icon'
 
 const IconMenu = React.createClass({
-	render : function() {
+	render() {
 		let classe = this.props.className;
 		return (
 		<MenuItem className={classe} click={this.props.click} active={this.props.active}>
