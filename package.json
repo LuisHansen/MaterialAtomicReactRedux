@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --config webpack.config.js"
+    "start": "webpack --watch | node ./bin/www"
   },
   "author": "",
   "license": "ISC",
@@ -19,14 +19,20 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
+    "body-parser": "^1.17.1",
     "chart.js": "^2.5.0",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
     "materialize": "^1.0.0",
+    "morgan": "^1.8.1",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
     "redux": "^3.6.0",
     "redux-form": "^6.5.0",
+    "serve-favicon": "^2.4.1",
     "sweetalert2": "^6.4.3"
   }
 }
