@@ -22,6 +22,7 @@ export default function (state=empty, action) {
 			if (settings && settings.compact) {
 				return Object.assign({}, state, { style: "small" });
 			}
+		break;
 	}
 
 	return state;

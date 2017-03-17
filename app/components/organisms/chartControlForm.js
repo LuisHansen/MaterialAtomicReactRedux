@@ -7,9 +7,6 @@ import Tooltip from '../atoms/tooltip'
 import IconTooltipped from '../molecules/iconTooltipped'
 
 var ChartControlForm = React.createClass({
-	componentDidMount() {
-		$('select').material_select();
-	},
 	render() {
 		const { handleSubmit } = this.props;
 	    return (
@@ -17,7 +14,11 @@ var ChartControlForm = React.createClass({
 	    	<form onSubmit={handleSubmit}>
 		    	<Card>
 			    	<title><Icon className="left">settings</Icon>Graph options<IconTooltipped className="right danger" data_position="top" data_tooltip="Clear settings">delete</IconTooltipped></title>
-					<Checkbox checked={this.props.mono} name="bnw">Black & white</Checkbox>
+					<ul>
+						<li>
+							<Checkbox checked={this.props.mono} name="bnw">Black & white</Checkbox>
+						</li>
+					</ul>
 					<br />
 					<div id="action">
 						<button className="waves-effect waves-light btn-flat" type="submit"><i className="material-icons right">send</i>Submit</button>

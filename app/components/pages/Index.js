@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Graphs from '../templates/Graphs'
 import Home from '../templates/Home'
+import Login from '../templates/Login'
 import Nature from '../templates/Nature'
 import Page from '../templates/pageTemplate'
 import Payments from '../templates/Payments'
@@ -27,17 +28,24 @@ function PageSwitcher(props) {
 
 const Index = React.createClass({
 	render() {
-		return(
-			<Page>
-				<PageSwitcher page={this.props.page.template} />
-			</Page>
-		)
+		if (this.props.user.login) {
+			return(
+				<Page>
+					<PageSwitcher page={this.props.page.template} />
+				</Page>
+			)
+		} else {
+			return(
+				<Login />
+			)
+		}
 	}
 });
 
 function mapStateToProps(state) {
 	return {
-		page: state.page
+		page: state.page,
+		user: state.user
 	}
 }
 

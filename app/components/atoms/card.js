@@ -14,7 +14,7 @@ const Card = React.createClass({
 			if (child.type === 'title') {
 				title.push(<span key={i} className="card-title">{child.props.children}</span>);
 			} else if (child.props.id === 'action') {
-				action.push(<div key={i} className="card-action">{child.props.children}</div>);
+				action.push(<div key={i} className={child.props.className ? child.props.className + " card-action" : "card-action"}>{child.props.children}</div>);
 			} else {
 				inner.push(child);
 			}

@@ -1,5 +1,6 @@
 body {
 	overflow-y: hidden;
+	background-color: #FAFBFC;
 }
 
 .menu {
@@ -242,4 +243,21 @@ input:-webkit-autofill:focus {
 nav {
 	box-shadow: none !important;
 	background-color: #EC2121;
+}
+
+.login-card {
+	width: 500px;
+	margin: auto;
+	margin-top: 100px;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating):hover {
+    color: #000;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
+    color: #000; 
+    margin-right: 24px;
+    transition: color .3s ease;
+    text-transform: uppercase;
 }

@@ -11694,7 +11694,7 @@ var Card = _react2.default.createClass({
 			} else if (child.props.id === 'action') {
 				action.push(_react2.default.createElement(
 					'div',
-					{ key: i, className: 'card-action' },
+					{ key: i, className: child.props.className ? child.props.className + " card-action" : "card-action" },
 					child.props.children
 				));
 			} else {
@@ -31538,6 +31538,10 @@ var _Home = __webpack_require__(408);
 
 var _Home2 = _interopRequireDefault(_Home);
 
+var _Login = __webpack_require__(899);
+
+var _Login2 = _interopRequireDefault(_Login);
+
 var _Nature = __webpack_require__(409);
 
 var _Nature2 = _interopRequireDefault(_Nature);
@@ -31574,17 +31578,22 @@ function PageSwitcher(props) {
 var Index = _react2.default.createClass({
 	displayName: 'Index',
 	render: function render() {
-		return _react2.default.createElement(
-			_pageTemplate2.default,
-			null,
-			_react2.default.createElement(PageSwitcher, { page: this.props.page.template })
-		);
+		if (this.props.user.login) {
+			return _react2.default.createElement(
+				_pageTemplate2.default,
+				null,
+				_react2.default.createElement(PageSwitcher, { page: this.props.page.template })
+			);
+		} else {
+			return _react2.default.createElement(_Login2.default, null);
+		}
 	}
 });
 
 function mapStateToProps(state) {
 	return {
-		page: state.page
+		page: state.page,
+		user: state.user
 	};
 }
 
@@ -31604,6 +31613,10 @@ Object.defineProperty(exports, "__esModule", {
 var _redux = __webpack_require__(34);
 
 var _reduxForm = __webpack_require__(90);
+
+var _auth = __webpack_require__(898);
+
+var _auth2 = _interopRequireDefault(_auth);
 
 var _graphsReducer = __webpack_require__(412);
 
@@ -31628,7 +31641,8 @@ var allReducers = (0, _redux.combineReducers)({
 	page: _pagesReducer2.default,
 	menu: _menuReducer2.default,
 	table: _tablesReducer2.default,
-	form: _reduxForm.reducer
+	form: _reduxForm.reducer,
+	user: _auth2.default
 });
 
 exports.default = allReducers;
@@ -31839,9 +31853,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var ChartControlForm = _react2.default.createClass({
 	displayName: 'ChartControlForm',
-	componentDidMount: function componentDidMount() {
-		$('select').material_select();
-	},
 	render: function render() {
 		var handleSubmit = this.props.handleSubmit;
 
@@ -31870,9 +31881,17 @@ var ChartControlForm = _react2.default.createClass({
 						)
 					),
 					_react2.default.createElement(
-						_checkbox2.default,
-						{ checked: this.props.mono, name: 'bnw' },
-						'Black & white'
+						'ul',
+						null,
+						_react2.default.createElement(
+							'li',
+							null,
+							_react2.default.createElement(
+								_checkbox2.default,
+								{ checked: this.props.mono, name: 'bnw' },
+								'Black & white'
+							)
+						)
 					),
 					_react2.default.createElement('br', null),
 					_react2.default.createElement(
@@ -32824,6 +32843,7 @@ exports.default = function () {
 			if (settings && settings.compact) {
 				return Object.assign({}, state, { style: "small" });
 			}
+			break;
 	}
 
 	return state;
@@ -71162,6 +71182,233 @@ _reactDom2.default.render(_react2.default.createElement(
 	{ store: store },
 	_react2.default.createElement(_Index2.default, null)
 ), document.getElementById('app'));
+
+/***/ }),
+/* 898 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = auth;
+var initial = {
+	login: false
+};
+
+function auth() {
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initial;
+	var action = arguments[1];
+
+	switch (action.type) {
+
+		case 'LOGIN':
+			if (action.status == 'REQUESTING') {
+				return Object.assign({}, state, { requesting: true });
+			} else if (action.status == 'SUCCESS') {
+				return Object.assign({}, state, { requesting: false, login: true, auth: action.payload });
+			} else if (action.status == 'FAIL') {
+				// TODO - tratar erro de login, falta de permissão, etc.
+			}
+			break;
+
+		case 'LOGOUT':
+			// TODO
+			break;
+
+		case 'PERMISSION':
+			// TODO - verificar se tem permissão para fazer algo
+			break;
+	}
+
+	return state;
+}
+
+/***/ }),
+/* 899 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _button = __webpack_require__(91);
+
+var _button2 = _interopRequireDefault(_button);
+
+var _card = __webpack_require__(122);
+
+var _card2 = _interopRequireDefault(_card);
+
+var _icon = __webpack_require__(35);
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _spinner = __webpack_require__(92);
+
+var _spinner2 = _interopRequireDefault(_spinner);
+
+var _iconButton = __webpack_require__(124);
+
+var _iconButton2 = _interopRequireDefault(_iconButton);
+
+var _graph = __webpack_require__(123);
+
+var _graph2 = _interopRequireDefault(_graph);
+
+var _tooltip = __webpack_require__(68);
+
+var _tooltip2 = _interopRequireDefault(_tooltip);
+
+var _loginForm = __webpack_require__(900);
+
+var _loginForm2 = _interopRequireDefault(_loginForm);
+
+var _reactRedux = __webpack_require__(20);
+
+var _index = __webpack_require__(78);
+
+var _redux = __webpack_require__(34);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Login = _react2.default.createClass({
+	displayName: 'Login',
+	handleSubmit: function handleSubmit(values) {
+		console.log(values);
+	},
+	render: function render() {
+		return _react2.default.createElement(_loginForm2.default, { onSubmit: this.handleSubmit });
+	}
+});
+
+function mapStateToProps(state) {
+	// return {
+	// 	graphs: state.graphs
+	// }
+}
+
+function mapDispatcherToProps(dispatch) {
+	// return bindActionCreators({ changeChartType: changeChartType }, dispatch);
+}
+
+exports.default = (0, _reactRedux.connect)(null, null)(Login);
+
+/***/ }),
+/* 900 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reduxForm = __webpack_require__(90);
+
+var _card = __webpack_require__(122);
+
+var _card2 = _interopRequireDefault(_card);
+
+var _icon = __webpack_require__(35);
+
+var _icon2 = _interopRequireDefault(_icon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var LoginForm = _react2.default.createClass({
+	displayName: 'LoginForm',
+	recover: function recover() {
+		console.log("Recuperar senha");
+	},
+	render: function render() {
+		var handleSubmit = this.props.handleSubmit;
+
+		return _react2.default.createElement(
+			'form',
+			{ onSubmit: handleSubmit },
+			_react2.default.createElement(
+				_card2.default,
+				{ className: 'login-card' },
+				_react2.default.createElement(
+					'title',
+					null,
+					_react2.default.createElement(
+						_icon2.default,
+						{ className: 'left' },
+						'lock'
+					),
+					'Login'
+				),
+				_react2.default.createElement('br', null),
+				_react2.default.createElement(
+					'div',
+					{ className: 'input-field' },
+					_react2.default.createElement(_reduxForm.Field, { id: 'user', name: 'user', component: 'input', type: 'text' }),
+					_react2.default.createElement(
+						'label',
+						{ htmlFor: 'user' },
+						'Username'
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'input-field' },
+					_react2.default.createElement(_reduxForm.Field, { id: 'password', name: 'password', component: 'input', type: 'password' }),
+					_react2.default.createElement(
+						'label',
+						{ htmlFor: 'password' },
+						'Password'
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'center', id: 'action' },
+					_react2.default.createElement(
+						'button',
+						{ className: 'waves-effect waves-light btn-flat', type: 'submit' },
+						_react2.default.createElement(
+							'i',
+							{ className: 'material-icons right' },
+							'send'
+						),
+						'Submit'
+					),
+					_react2.default.createElement(
+						'a',
+						{ className: 'waves-effect waves-light btn-flat', onClick: this.recover, type: 'recover' },
+						_react2.default.createElement(
+							'i',
+							{ className: 'material-icons right' },
+							'report_problem'
+						),
+						'Recover password'
+					)
+				)
+			)
+		);
+	}
+});
+
+LoginForm = (0, _reduxForm.reduxForm)({
+	form: 'login' // a unique name for this form
+})(LoginForm);
+
+exports.default = LoginForm;
 
 /***/ })
 /******/ ]);
