@@ -8849,12 +8849,20 @@ var applySettings = function applySettings(settings) {
 	};
 };
 
+var changeCompact = function changeCompact(compact) {
+	return {
+		type: 'CHANGE_COMPACT',
+		payload: compact
+	};
+};
+
 exports.changeChartType = changeChartType;
 exports.changeChartColors = changeChartColors;
 exports.menuClick = menuClick;
 exports.loadMenu = loadMenu;
 exports.loadTableData = loadTableData;
 exports.applySettings = applySettings;
+exports.changeCompact = changeCompact;
 
 /***/ }),
 /* 78 */
@@ -9654,12 +9662,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Spinner = _react2.default.createClass({
 	displayName: "Spinner",
 	render: function render() {
+		var classe = this.props.className + " spin-container";
 		return _react2.default.createElement(
 			"div",
-			{ className: "spin-container" },
+			{ className: classe },
 			_react2.default.createElement(
 				"svg",
-				{ className: "spinner", width: "58px", height: "58px", viewBox: "0 0 58 58", xmlns: "http://www.w3.org/2000/svg" },
+				{ style: this.props.small ? { width: "38px" } : {}, className: "spinner", width: "58px", height: "58px", viewBox: "0 0 58 58", xmlns: "http://www.w3.org/2000/svg" },
 				_react2.default.createElement("circle", { className: "circ", fill: "#EDF1F2", cx: "29", cy: "29", r: "29" }),
 				_react2.default.createElement("circle", { className: "path", fill: "none", strokeWidth: "3.5", strokeLinecap: "round", cx: "29", cy: "29", r: "14" })
 			)
@@ -31835,17 +31844,21 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _iconMenu = __webpack_require__(400);
+var _redux = __webpack_require__(34);
 
-var _iconMenu2 = _interopRequireDefault(_iconMenu);
+var _reactRedux = __webpack_require__(20);
 
 var _spinner = __webpack_require__(90);
 
 var _spinner2 = _interopRequireDefault(_spinner);
 
-var _reactRedux = __webpack_require__(20);
+var _tooltip = __webpack_require__(91);
 
-var _redux = __webpack_require__(34);
+var _tooltip2 = _interopRequireDefault(_tooltip);
+
+var _iconMenu = __webpack_require__(400);
+
+var _iconMenu2 = _interopRequireDefault(_iconMenu);
 
 var _index = __webpack_require__(77);
 
@@ -31856,19 +31869,31 @@ var Menu = _react2.default.createClass({
 
 	populateMenu: function populateMenu(object) {
 		var menu = [];
+		var inner = null;
 		var index = 0;
 		object.props.menu.pages.forEach(function (page) {
 			var active = page.title === object.props.page.title;
-			menu.push(_react2.default.createElement(
-				'li',
-				{ key: index++ },
-				_react2.default.createElement(
+			if (object.props.menu.style == "big") {
+				inner = _react2.default.createElement(
 					_iconMenu2.default,
 					{ active: active, click: function click() {
 							return object.props.menuClick(page);
 						}, className: object.props.className, icon: page.icon },
 					page.title
-				)
+				);
+			} else if (object.props.menu.style == "small") {
+				inner = _react2.default.createElement(
+					_tooltip2.default,
+					{ data_tooltip: page.title, data_position: 'right' },
+					_react2.default.createElement(_iconMenu2.default, { active: active, click: function click() {
+							return object.props.menuClick(page);
+						}, className: object.props.className, icon: page.icon })
+				);
+			}
+			menu.push(_react2.default.createElement(
+				'li',
+				{ key: index++ },
+				inner
 			));
 		});
 		return menu;
@@ -31879,13 +31904,14 @@ var Menu = _react2.default.createClass({
 	render: function render() {
 		var _this = this;
 
+		// Big sidenav
 		if (this.props.menu.pages.length == 0) {
 			setTimeout(function () {
 				_this.props.loadMenu(); // Simulate async data loading
 			}, 500);
 			return _react2.default.createElement(
 				'div',
-				{ className: 'menu' },
+				{ className: this.props.menu.style == "big" ? "menu" : "menu-small" },
 				_react2.default.createElement(
 					'div',
 					{ className: 'loading' },
@@ -31894,15 +31920,15 @@ var Menu = _react2.default.createClass({
 					_react2.default.createElement(
 						'center',
 						null,
-						_react2.default.createElement(_spinner2.default, null)
+						_react2.default.createElement(_spinner2.default, { className: this.props.menu.style == "small" ? "spinner-small" : "", small: this.props.menu.style == "small" })
 					)
 				)
 			);
 		}
 		return _react2.default.createElement(
 			'div',
-			{ className: 'menu' },
-			_react2.default.createElement(
+			{ className: this.props.menu.style == "big" ? "menu" : "menu-small" },
+			this.props.menu.style == "big" && _react2.default.createElement(
 				'div',
 				{ className: 'loading' },
 				_react2.default.createElement('br', null),
@@ -31916,7 +31942,7 @@ var Menu = _react2.default.createClass({
 			_react2.default.createElement(
 				'ul',
 				null,
-				_react2.default.createElement(
+				this.props.menu.style == "big" && _react2.default.createElement(
 					'li',
 					{ className: 'menutitle' },
 					_react2.default.createElement(
@@ -32067,6 +32093,10 @@ var _chartControlForm = __webpack_require__(402);
 
 var _chartControlForm2 = _interopRequireDefault(_chartControlForm);
 
+var _menuControlForm = __webpack_require__(897);
+
+var _menuControlForm2 = _interopRequireDefault(_menuControlForm);
+
 var _index = __webpack_require__(77);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -32075,6 +32105,10 @@ var Home = _react2.default.createClass({
 	displayName: 'Home',
 	handleSubmit: function handleSubmit(values) {
 		if (values.bnw != undefined) this.props.changeChartColors(values.bnw ? "mono" : "colors");
+		return false;
+	},
+	handleMenu: function handleMenu(values) {
+		if (values.compact != undefined) this.props.changeCompact(values.compact ? "compact" : "large");
 		return false;
 	},
 	render: function render() {
@@ -32088,6 +32122,11 @@ var Home = _react2.default.createClass({
 					'div',
 					{ className: 'col s5' },
 					_react2.default.createElement(_chartControlForm2.default, { mono: this.props.graphs.mono, onSubmit: this.handleSubmit })
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'col s5' },
+					_react2.default.createElement(_menuControlForm2.default, { compact: this.props.menu.style == "small", onSubmit: this.handleMenu })
 				)
 			),
 			_react2.default.createElement(
@@ -32105,12 +32144,13 @@ var Home = _react2.default.createClass({
 
 function mapStateToProps(state) {
 	return {
-		graphs: state.graphs
+		graphs: state.graphs,
+		menu: state.menu
 	};
 }
 
 function mapDispatcherToProps(dispatch) {
-	return (0, _redux.bindActionCreators)({ changeChartColors: _index.changeChartColors }, dispatch);
+	return (0, _redux.bindActionCreators)({ changeChartColors: _index.changeChartColors, changeCompact: _index.changeCompact }, dispatch);
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatcherToProps)(Home);
@@ -32412,6 +32452,10 @@ var _menu = __webpack_require__(403);
 
 var _menu2 = _interopRequireDefault(_menu);
 
+var _navbar = __webpack_require__(896);
+
+var _navbar2 = _interopRequireDefault(_navbar);
+
 var _index = __webpack_require__(77);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -32429,6 +32473,20 @@ var Page = _react2.default.createClass({
 			'div',
 			null,
 			_react2.default.createElement(
+				_navbar2.default,
+				{ title: 'Dashboard' },
+				_react2.default.createElement(
+					'li',
+					{ href: '#' },
+					'Test'
+				),
+				_react2.default.createElement(
+					'li',
+					{ href: '#' },
+					'Test2'
+				)
+			),
+			_react2.default.createElement(
 				_menu2.default,
 				{ menu: this.props.menu },
 				_react2.default.createElement(
@@ -32439,7 +32497,7 @@ var Page = _react2.default.createClass({
 			),
 			_react2.default.createElement(
 				'div',
-				{ className: 'content' },
+				{ className: this.props.menu.style == "big" ? "content" : "content-big" },
 				_react2.default.createElement(
 					'h1',
 					null,
@@ -32531,6 +32589,7 @@ exports.default = function () {
 var initial = {
 	mono: false,
 	type: 'bar',
+	responsive: true,
 	data: {
 		labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
 		datasets: [{
@@ -32542,6 +32601,7 @@ var initial = {
 		}]
 	},
 	options: {
+		animation: false,
 		scales: {
 			yAxes: [{
 				ticks: {
@@ -32570,19 +32630,30 @@ exports.default = function () {
 	switch (action.type) {
 
 		case 'LOAD_MENU':
-			return initial;
+			return Object.assign({}, state, initial);
 			break;
 
+		case 'CHANGE_COMPACT':
+			var config = Object.assign({}, JSON.parse(localStorage.getItem("settings")), { compact: action.payload == "compact" });
+			localStorage.setItem("settings", JSON.stringify(config));
+			return Object.assign({}, state, { style: action.payload == "compact" ? "small" : "big" });
+			break;
+
+		case 'APPLY_SETTINGS':
+			var settings = action.payload;
+			if (settings && settings.compact) {
+				return Object.assign({}, state, { style: "small" });
+			}
 	}
 
 	return state;
 };
 
 var initial = {
-	pages: [{ title: "Home", template: "Home", icon: "home" }, { title: "Payments", template: "Payments", icon: "credit_card" }, { title: "Nature", template: "Nature", icon: "nature_people" }, { title: "Charts", template: "Graphs", icon: "insert_chart" }]
+	pages: [{ title: "Home", template: "Home", icon: "home" }, { title: "Payments", template: "Payments", icon: "credit_card" }, { title: "Nature", template: "Nature", icon: "nature_people" }, { title: "Control Panel", template: "Graphs", icon: "insert_chart" }]
 };
 
-var empty = { pages: [] };
+var empty = { style: "big", pages: [] };
 
 /***/ }),
 /* 412 */
@@ -70911,6 +70982,186 @@ _reactDom2.default.render(_react2.default.createElement(
 	{ store: store },
 	_react2.default.createElement(_Index2.default, null)
 ), document.getElementById('app'));
+
+/***/ }),
+/* 896 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _menuItem = __webpack_require__(398);
+
+var _menuItem2 = _interopRequireDefault(_menuItem);
+
+var _icon = __webpack_require__(47);
+
+var _icon2 = _interopRequireDefault(_icon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Navbar = _react2.default.createClass({
+	displayName: 'Navbar',
+	render: function render() {
+		var _this = this;
+
+		var classe = this.props.className;
+		var itens = [];
+		this.props.children.filter(function (child) {
+			return (typeof child === 'undefined' ? 'undefined' : _typeof(child)) === 'object';
+		}).map(function (child, i) {
+			if (child.type === 'li') {
+				itens.push(_react2.default.createElement(
+					'li',
+					{ key: i },
+					_react2.default.createElement(
+						'a',
+						{ href: _this.props.children[i].props.href },
+						_this.props.children[i].props.children
+					)
+				));
+			}
+		});
+		return _react2.default.createElement(
+			'nav',
+			null,
+			_react2.default.createElement(
+				'div',
+				{ className: 'nav-wrapper' },
+				_react2.default.createElement(
+					'a',
+					{ href: '#', className: 'brand-logo center' },
+					this.props.title
+				),
+				_react2.default.createElement(
+					'ul',
+					{ id: 'nav-mobile', className: 'right hide-on-small-only' },
+					itens
+				)
+			)
+		);
+	}
+});
+
+exports.default = Navbar;
+
+/***/ }),
+/* 897 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reduxForm = __webpack_require__(119);
+
+var _card = __webpack_require__(192);
+
+var _card2 = _interopRequireDefault(_card);
+
+var _checkbox = __webpack_require__(397);
+
+var _checkbox2 = _interopRequireDefault(_checkbox);
+
+var _icon = __webpack_require__(47);
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _tooltip = __webpack_require__(91);
+
+var _tooltip2 = _interopRequireDefault(_tooltip);
+
+var _iconTooltipped = __webpack_require__(401);
+
+var _iconTooltipped2 = _interopRequireDefault(_iconTooltipped);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var MenuControlForm = _react2.default.createClass({
+	displayName: 'MenuControlForm',
+	render: function render() {
+		var handleSubmit = this.props.handleSubmit;
+
+		return _react2.default.createElement(
+			'div',
+			null,
+			_react2.default.createElement(
+				'form',
+				{ onSubmit: handleSubmit },
+				_react2.default.createElement(
+					_card2.default,
+					null,
+					_react2.default.createElement(
+						'title',
+						null,
+						_react2.default.createElement(
+							_icon2.default,
+							{ className: 'left' },
+							'settings'
+						),
+						'Layout options',
+						_react2.default.createElement(
+							_iconTooltipped2.default,
+							{ className: 'right danger', data_position: 'top', data_tooltip: 'Clear settings' },
+							'delete'
+						)
+					),
+					_react2.default.createElement(
+						'ul',
+						null,
+						_react2.default.createElement(
+							'li',
+							null,
+							_react2.default.createElement(
+								_checkbox2.default,
+								{ checked: this.props.compact, name: 'compact' },
+								'Compact mode'
+							)
+						)
+					),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(
+						'div',
+						{ id: 'action' },
+						_react2.default.createElement(
+							'button',
+							{ className: 'waves-effect waves-light btn-flat', type: 'submit' },
+							_react2.default.createElement(
+								'i',
+								{ className: 'material-icons right' },
+								'send'
+							),
+							'Submit'
+						)
+					)
+				)
+			)
+		);
+	}
+});
+
+MenuControlForm = (0, _reduxForm.reduxForm)({
+	form: 'menuControl' // a unique name for this form
+})(MenuControlForm);
+
+exports.default = MenuControlForm;
 
 /***/ })
 /******/ ]);

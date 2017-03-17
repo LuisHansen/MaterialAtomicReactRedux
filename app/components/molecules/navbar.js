@@ -10,14 +10,14 @@ const Navbar = React.createClass({
 		.filter(child => typeof child === 'object')
 		.map((child,i)=> {
 			if (child.type === 'li') {
-				itens.push(<li><a href={this.props.children[i].props.href}>{this.props.children[i].props.children}</a></li>);
+				itens.push(<li key={i}><a href={this.props.children[i].props.href}>{this.props.children[i].props.children}</a></li>);
 			}
 		});
 		return (
 			<nav>
-				<div class="nav-wrapper">
-				<a href="#" class="brand-logo">{this.props.children}</a>
-				<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<div className="nav-wrapper">
+				<a href="#" className="brand-logo center">{this.props.title}</a>
+				<ul id="nav-mobile" className="right hide-on-small-only">
 					{itens}
 				</ul>
 				</div>

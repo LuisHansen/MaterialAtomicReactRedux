@@ -8,7 +8,8 @@ import Spinner from '../atoms/spinner'
 import Tooltip from '../atoms/tooltip'
 import IconButton from '../molecules/iconButton'
 import ChartControlForm from '../organisms/chartControlForm'
-import { changeChartColors } from '../../actions/index'
+import MenuControlForm from '../organisms/menuControlForm'
+import { changeChartColors, changeCompact } from '../../actions/index'
 
 
 const Home = React.createClass({
@@ -17,11 +18,19 @@ const Home = React.createClass({
 			this.props.changeChartColors(values.bnw ? "mono" : "colors");
 		return false;
   	},
+  	handleMenu(values) {
+		if (values.compact != undefined)
+			this.props.changeCompact(values.compact ? "compact" : "large");
+		return false;
+  	},
 	render() { return (
 		<div>
 			<div className="row">
 			<div className="col s5">
 				<ChartControlForm mono={this.props.graphs.mono} onSubmit={this.handleSubmit}/>
+			</div>
+			<div className="col s5">
+				<MenuControlForm compact={this.props.menu.style == "small"} onSubmit={this.handleMenu}/>
 			</div>
 			</div>
 			<div className="row">
@@ -36,12 +45,13 @@ const Home = React.createClass({
 
 function mapStateToProps(state) {
 	return {
-		graphs: state.graphs
+		graphs: state.graphs,
+		menu: state.menu
 	}
 }
 
 function mapDispatcherToProps(dispatch) {
-	return bindActionCreators({ changeChartColors: changeChartColors }, dispatch);
+	return bindActionCreators({ changeChartColors: changeChartColors, changeCompact: changeCompact }, dispatch);
 }
 
 

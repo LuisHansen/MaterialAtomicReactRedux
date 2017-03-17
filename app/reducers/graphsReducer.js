@@ -1,6 +1,7 @@
 var initial = {
 		mono: false,
 	    type: 'bar',
+	    responsive: true,
 	    data: {
 	        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
 	        datasets: [{
@@ -26,6 +27,7 @@ var initial = {
 	        }]
 	    },
 	    options: {
+	    	animation: false,
 	        scales: {
 	            yAxes: [{
 	                ticks: {

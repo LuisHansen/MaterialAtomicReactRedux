@@ -40,4 +40,12 @@ const applySettings = (settings) => {
 	};
 }
 
-export { changeChartType, changeChartColors, menuClick, loadMenu, loadTableData, applySettings }
+
+const changeCompact = (compact) => {
+	return {
+		type: 'CHANGE_COMPACT',
+		payload: compact
+	}
+}
+
+export { changeChartType, changeChartColors, menuClick, loadMenu, loadTableData, applySettings, changeCompact }
