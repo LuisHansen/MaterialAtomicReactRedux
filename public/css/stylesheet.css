@@ -261,3 +261,7 @@ nav {
     transition: color .3s ease;
     text-transform: uppercase;
 }
+
+.loginError {
+	color: #EC2121;
+}

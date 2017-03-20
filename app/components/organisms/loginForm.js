@@ -9,10 +9,15 @@ var LoginForm = React.createClass({
 	},
 	render() {
 		const { handleSubmit } = this.props;
+		let error = "";
+		if (this.props.user.error) {
+			error = <div className="loginError center">Login failed. Check your credentials.</div>
+		}
 	    return (
 			<form onSubmit={handleSubmit}>
 				<Card className="login-card">
 					<title><Icon className="left">lock</Icon>Login</title>
+					{error}
 					<br />
 					<div className="input-field">
 					  <Field id="user" name="user" component="input" type="text"/>

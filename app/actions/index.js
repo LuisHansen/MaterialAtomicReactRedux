@@ -48,4 +48,12 @@ const changeCompact = (compact) => {
 	}
 }
 
-export { changeChartType, changeChartColors, menuClick, loadMenu, loadTableData, applySettings, changeCompact }
+const login = (payload) => {
+	return {
+		type: 'LOGIN',
+		status: payload.status,
+		payload: payload.token
+	}
+}
+
+export { changeChartType, changeChartColors, menuClick, loadMenu, loadTableData, applySettings, changeCompact, login }
