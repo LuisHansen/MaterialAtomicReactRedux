@@ -10,7 +10,7 @@ const Navbar = React.createClass({
 		.filter(child => typeof child === 'object')
 		.map((child,i)=> {
 			if (child.type === 'li') {
-				itens.push(<li key={i}><a href={this.props.children[i].props.href}>{this.props.children[i].props.children}</a></li>);
+				itens.push(<li key={i} onClick={this.props.children[i].props.onClick}><a href={this.props.children[i].props.href}>{this.props.children[i].props.children}</a></li>);
 			}
 		});
 		return (

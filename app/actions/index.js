@@ -56,4 +56,10 @@ const login = (payload) => {
 	}
 }
 
-export { changeChartType, changeChartColors, menuClick, loadMenu, loadTableData, applySettings, changeCompact, login }
+const logout = () => {
+	return {
+		type: 'LOGOUT'
+	}
+}
+
+export { changeChartType, changeChartColors, menuClick, loadMenu, loadTableData, applySettings, changeCompact, login, logout }

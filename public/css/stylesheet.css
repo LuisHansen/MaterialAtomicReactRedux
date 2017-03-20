@@ -265,3 +265,9 @@ nav {
 .loginError {
 	color: #EC2121;
 }
+
+.load-gif {
+    margin-left: -7px;
+    margin-top: -4px;
+    width: 72px;
+}

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import Icon from '../atoms/icon'
 import Menu from '../organisms/menu'
 import Navbar from '../molecules/navbar'
-import { applySettings } from '../../actions/index'
+import { applySettings, logout } from '../../actions/index'
 
 
 const Page = React.createClass({
@@ -14,12 +14,15 @@ const Page = React.createClass({
 			this.props.applySettings(JSON.parse(localStorage.getItem("settings")));
 		}
 	},
+	logout() {
+		this.props.logout();
+	},
 	render() {
 		return (
 		<div>
 			<Navbar title="Dashboard">
 				<li href="#">Test</li>
-				<li href="#">Test2</li>
+				<li href="javascript:void(0)" onClick={this.logout}><i className="material-icons right">exit_to_app</i>Logout</li>
 			</Navbar>
 			<Menu menu={this.props.menu}><Icon className="title">{this.props.page.icon}</Icon></Menu>
 			<div className={this.props.menu.style == "big" ? "content" : "content-big" }>
@@ -39,7 +42,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatcherToProps(dispatch) {
-	return bindActionCreators({ applySettings: applySettings }, dispatch);
+	return bindActionCreators({ applySettings: applySettings, logout: logout }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatcherToProps)(Page);

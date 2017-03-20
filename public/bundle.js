@@ -7630,6 +7630,12 @@ var login = function login(payload) {
 	};
 };
 
+var logout = function logout() {
+	return {
+		type: 'LOGOUT'
+	};
+};
+
 exports.changeChartType = changeChartType;
 exports.changeChartColors = changeChartColors;
 exports.menuClick = menuClick;
@@ -7638,6 +7644,7 @@ exports.loadTableData = loadTableData;
 exports.applySettings = applySettings;
 exports.changeCompact = changeCompact;
 exports.login = login;
+exports.logout = logout;
 
 /***/ }),
 /* 55 */
@@ -9147,15 +9154,18 @@ var Spinner = _react2.default.createClass({
 	displayName: "Spinner",
 	render: function render() {
 		var classe = this.props.className + " spin-container";
+		// return (
+		//   <div className={classe}>
+		//   		<svg style={this.props.small ? {width: "38px"} : {}} className="spinner" width="58px" height="58px" viewBox="0 0 58 58" xmlns="http://www.w3.org/2000/svg">
+		//   			<circle className="circ" fill="#EDF1F2" cx="29" cy="29" r="29"></circle>
+		//  					<circle className="path" fill="none" strokeWidth="3.5" strokeLinecap="round" cx="29" cy="29" r="14"></circle>
+		// 		</svg>
+		//   </div>
+		// );
 		return _react2.default.createElement(
 			"div",
 			{ className: classe },
-			_react2.default.createElement(
-				"svg",
-				{ style: this.props.small ? { width: "38px" } : {}, className: "spinner", width: "58px", height: "58px", viewBox: "0 0 58 58", xmlns: "http://www.w3.org/2000/svg" },
-				_react2.default.createElement("circle", { className: "circ", fill: "#EDF1F2", cx: "29", cy: "29", r: "29" }),
-				_react2.default.createElement("circle", { className: "path", fill: "none", strokeWidth: "3.5", strokeLinecap: "round", cx: "29", cy: "29", r: "14" })
-			)
+			_react2.default.createElement("img", { className: "load-gif", width: "58px", src: "/img/loading_slow_1.gif", alt: "loading" })
 		);
 	}
 });
@@ -31893,7 +31903,7 @@ var Navbar = _react2.default.createClass({
 			if (child.type === 'li') {
 				itens.push(_react2.default.createElement(
 					'li',
-					{ key: i },
+					{ key: i, onClick: _this.props.children[i].props.onClick },
 					_react2.default.createElement(
 						'a',
 						{ href: _this.props.children[i].props.href },
@@ -32980,6 +32990,9 @@ var Page = _react2.default.createClass({
 			this.props.applySettings(JSON.parse(localStorage.getItem("settings")));
 		}
 	},
+	logout: function logout() {
+		this.props.logout();
+	},
 	render: function render() {
 		return _react2.default.createElement(
 			'div',
@@ -32994,8 +33007,13 @@ var Page = _react2.default.createClass({
 				),
 				_react2.default.createElement(
 					'li',
-					{ href: '#' },
-					'Test2'
+					{ href: 'javascript:void(0)', onClick: this.logout },
+					_react2.default.createElement(
+						'i',
+						{ className: 'material-icons right' },
+						'exit_to_app'
+					),
+					'Logout'
 				)
 			),
 			_react2.default.createElement(
@@ -33029,7 +33047,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatcherToProps(dispatch) {
-	return (0, _redux.bindActionCreators)({ applySettings: _index.applySettings }, dispatch);
+	return (0, _redux.bindActionCreators)({ applySettings: _index.applySettings, logout: _index.logout }, dispatch);
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatcherToProps)(Page);
@@ -72036,7 +72054,9 @@ var _reactRedux = __webpack_require__(19);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _redux.createStore)(_reducers2.default, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+var store = (0, _redux.createStore)(_reducers2.default, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default) /*,
+                                                                                                                              window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()*/
+));
 
 _reactDom2.default.render(_react2.default.createElement(
 	_reactRedux.Provider,
