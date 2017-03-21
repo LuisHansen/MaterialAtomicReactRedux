@@ -19,6 +19,10 @@ const loginAsync = (form) => {
 					dispatch(reset('login'));
 					dispatch(login ( { status: 'FAIL' } ));
 				break;
+				case 400:
+					dispatch(reset('login'));
+					dispatch(login ( { status: 'FAIL' } ));
+				break;
 				case 200:
 					response.json().then(function(json){
 						let token = json.token;

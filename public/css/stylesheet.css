@@ -252,11 +252,11 @@ nav {
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating):hover {
-    color: #000;
+    color: #343434;
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
-    color: #000; 
+    color: #343434; 
     margin-right: 24px;
     transition: color .3s ease;
     text-transform: uppercase;
@@ -270,4 +270,15 @@ nav {
     margin-left: -7px;
     margin-top: -4px;
     width: 72px;
+}
+
+.blurred {
+	filter: blur(2px) brightness(98%);
+}
+
+.loading-login {
+    position: fixed;
+    top: calc(50% - 58px);
+    left: calc(50% - 38px);
+    z-index: 100;
 }

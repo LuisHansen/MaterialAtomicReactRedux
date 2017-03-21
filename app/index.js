@@ -11,9 +11,23 @@ const store = createStore(
 	allReducers,
 	compose(applyMiddleware(
 		thunkMiddleware
-	)/*,
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()*/
-	));
+	),
+	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+));
+
+let patt = /@@/i;
+let history = [];
+
+store.subscribe(() => {
+	if (!patt.test(store.getState().lastAction.type) &&
+		store.getState().lastAction.type != 'LOGIN' &&
+		store.getState().lastAction.type != 'LOAD_MENU') {
+		if (history.lenght > 20) {
+			history.shift();
+		}
+		history.push(store.getState());
+	}
+})
 
 ReactDOM.render(
 	<Provider store={store}>

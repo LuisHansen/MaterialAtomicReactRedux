@@ -4,7 +4,6 @@ import Card from '../atoms/card'
 import Icon from '../atoms/icon'
 import Spinner from '../atoms/spinner'
 import IconButton from '../molecules/iconButton'
-import Graph from '../atoms/graph'
 import Tooltip from '../atoms/tooltip'
 import LoginForm from '../organisms/loginForm'
 import { connect } from 'react-redux'
@@ -23,8 +22,15 @@ const Login = React.createClass({
 		this.props.loginAsync({ username: values.user, password: values.password });
 	},
 	render() {
+		let loading = this.props.user.requesting ? <div><Spinner className="loading-login" /></div> : "";
+		let classe = this.props.user.requesting ? "blurred" : "";
 		return (
+			<div>
+			{loading}
+			<div className={classe}>
 			<LoginForm onSubmit={this.handleSubmit} user={this.props.user}></LoginForm>
+			</div>
+			</div>
 		);
 	}
 });
