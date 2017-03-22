@@ -9,11 +9,15 @@ const Navbar = React.createClass({
 	render() {
 		let classe = this.props.className;
 		let itens = [];
+		let itensMobile = [];
 		this.props.children
 		.filter(child => typeof child === 'object')
 		.map((child,i)=> {
-			if (child.type === 'li') {
+			if ( child.type === 'li') {
 				itens.push(<li key={i} onClick={this.props.children[i].props.onClick}><a href={this.props.children[i].props.href}>{this.props.children[i].props.children}</a></li>);
+				if (child.props.className != "fullscreen") {
+					itensMobile.push(<li key={i} onClick={this.props.children[i].props.onClick}><a href={this.props.children[i].props.href}>{this.props.children[i].props.children}</a></li>);
+				}
 			}
 		});
 		return (
@@ -25,7 +29,7 @@ const Navbar = React.createClass({
 					{itens}
 				</ul>
 				<ul className="side-nav" id="mobile-menu">
-					{itens}
+					{itensMobile}
 				</ul>
 				</div>
 			</nav>

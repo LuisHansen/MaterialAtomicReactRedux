@@ -5,6 +5,8 @@ import graphsReducer from './graphsReducer'
 import pagesReducer from './pagesReducer'
 import menuReducer from './menuReducer'
 import tablesReducer from './tablesReducer'
+import app from './app'
+import licensesReducer from './licensesReducer'
 
 
 const lastAction = function (state=null, action) {
@@ -18,7 +20,9 @@ const allReducers = combineReducers({
 	table: tablesReducer,
 	form: formReducer,
 	user: auth,
-	lastAction: lastAction
+	lastAction: lastAction,
+	appSettings: app,
+	licenses: licensesReducer
 });
 
 export default allReducers;

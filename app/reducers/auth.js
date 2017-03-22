@@ -1,17 +1,20 @@
 var initial = {
-	login: false
+	login: false,
+	error: false
 }
 
-export default function auth(state=initial, action) {
+export default function (state=initial, action) {
 	switch (action.type) {
 
 		case 'LOGIN':
 			if (action.status == 'REQUESTING') {
 				return Object.assign({}, state, { requesting: true });
 			} else if (action.status == 'SUCCESS') {
-				if (action.payload)
-					localStorage.setItem("token", action.payload); // Save auth token
-				return Object.assign({}, state, { requesting: false, login: true });
+				if (action.payload.token) {
+					localStorage.setItem("token", action.payload.token); // Save auth token
+				}
+				let user = action.payload.user;
+				return Object.assign({}, state, { requesting: false, login: true, user: user });
 			} else if (action.status == 'FAIL') {
 				return Object.assign({}, state, { requesting: false, error: true });
 			} else if (action.status == 'NO_TOKEN') {
@@ -21,11 +24,11 @@ export default function auth(state=initial, action) {
 
 		case 'LOGOUT':
 			localStorage.removeItem("token");
-			return Object.assign({}, state, { login: false });
+			return Object.assign({}, state, { login: false, user: null, error: false });
 		break;
 
 		case 'PERMISSION':
-			// TODO - verificar se tem permissão para fazer algo
+			// TODO - verify user permissions
 		break;
 	}
 

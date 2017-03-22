@@ -19,10 +19,10 @@ const menuClick = (page) => {
 	};
 }
 
-const loadMenu = () => {
+const loadMenu = (role) => {
 	return {
 		type: 'LOAD_MENU',
-		payload: null
+		payload: role
 	};
 }
 
@@ -52,7 +52,7 @@ const login = (payload) => {
 	return {
 		type: 'LOGIN',
 		status: payload.status,
-		payload: payload.token
+		payload: { token: payload.token, user: payload.user }
 	}
 }
 
@@ -62,4 +62,26 @@ const logout = () => {
 	}
 }
 
-export { changeChartType, changeChartColors, menuClick, loadMenu, loadTableData, applySettings, changeCompact, login, logout }
+const fullscreen = (payload) => {
+	return {
+		type: 'FULLSCREEN',
+		payload: payload
+	}
+}
+
+const init = (page) => {
+	return {
+		type: 'INIT',
+		payload: page
+	}
+}
+
+const getLicenses = (payload) => {
+	return {
+		type: 'GET_LICENSES',
+		status: payload.status,
+		payload: payload.licenses
+	}
+}
+
+export { changeChartType, changeChartColors, menuClick, loadMenu, loadTableData, applySettings, changeCompact, login, logout, fullscreen, init, getLicenses }

@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { login } from './index'
+import { login, getLicenses } from './index'
 import { consts } from '../consts/index'
 import {reset} from 'redux-form'
 
@@ -26,7 +26,37 @@ const loginAsync = (form) => {
 				case 200:
 					response.json().then(function(json){
 						let token = json.token;
-						dispatch(login ( { status: 'SUCCESS', token: token } ));
+						let user = json.user;
+						dispatch(login ( { status: 'SUCCESS', token: token, user: user } ));
+					})
+				break;
+			}
+		})
+	}
+}
+
+const getLicensesAsync = (token) => {
+	return function (dispatch) {
+		dispatch(getLicenses ( { status: 'REQUESTING' } ));
+		return fetch(consts.baseUrl + consts.getLicenses, {
+			method: 'GET',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				'Authorization': token
+			}
+		}).then(function(response) {
+			switch (response.status) {
+				case 401:
+					dispatch(getLicenses ( { status: 'FAIL' } ));
+				break;
+				case 400:
+					dispatch(getLicenses ( { status: 'FAIL' } ));
+				break;
+				case 200:
+					response.json().then(function(json){
+						let licenses = json
+						dispatch(getLicenses ( { status: 'SUCCESS', licenses: licenses } ));
 					})
 				break;
 			}
@@ -48,11 +78,14 @@ const tryFirstLoginAsync = (token) => {
 					dispatch(login( { status: 'NO_TOKEN' }));
 				break;
 				case 200:
-					dispatch(login ( { status: 'SUCCESS' } ));
+					response.json().then(function(json){
+						let user = json.user;
+						dispatch(login ( { status: 'SUCCESS', user: user } ));
+					})
 				break;
 			}
 		})
 	}
 }
 
-export { loginAsync, tryFirstLoginAsync }
+export { loginAsync, tryFirstLoginAsync, getLicensesAsync }

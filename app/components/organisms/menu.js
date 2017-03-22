@@ -32,9 +32,6 @@ const Menu = React.createClass({
 	render() {
 		// Big sidenav
 		if (this.props.menu.pages.length == 0) {
-			setTimeout(() => {
-				this.props.loadMenu(); // Simulate async data loading
-			}, 500);
 			return (
 				<div className={this.props.menu.style == "big" ? "menu" : "menu-small"}>
 					<div className="loading">
@@ -69,7 +66,8 @@ const Menu = React.createClass({
 
 function mapStateToProps(state) {
 	return {
-		page: state.page
+		page: state.page,
+		user: state.user.user
 	}
 }
 

@@ -1,7 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Admin from '../templates/Admin'
 import Graphs from '../templates/Graphs'
 import Home from '../templates/Home'
+import Licenses from '../templates/Licenses'
 import Login from '../templates/Login'
 import Nature from '../templates/Nature'
 import Page from '../templates/pageTemplate'
@@ -20,6 +22,12 @@ function PageSwitcher(props) {
 		break;
 		case "Graphs":
 			return <Graphs />;
+		break;
+		case "Admin":
+			return <Admin />;
+		break;
+		case "Licenses":
+			return <Licenses />;
 		break;
 	}
 

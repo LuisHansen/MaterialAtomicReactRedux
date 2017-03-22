@@ -3,17 +3,19 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Icon from '../atoms/icon'
 import Menu from '../organisms/menu'
+import AccountInfo from '../organisms/accountInfo'
 import Navbar from '../molecules/navbar'
 import Modal from '../molecules/modal'
-import { applySettings, logout } from '../../actions/index'
+import { applySettings, logout, fullscreen, init, loadMenu } from '../../actions/index'
 
 
 const Page = React.createClass({
 	componentWillMount() {
-		// Check store settings
+		this.props.loadMenu(this.props.user.role);
+		// Check stored settings
 		if (typeof(Storage) !== "undefined") {
 			this.props.applySettings(JSON.parse(localStorage.getItem("settings")));
-		}
+		}		
 	},
 	componentDidMount() {
 	},
@@ -21,10 +23,19 @@ const Page = React.createClass({
 		$(".button-collapse").sideNav('hide');
 		this.props.logout();
 	},
+	fullscreen() {
+		this.props.fullscreen( this.props.appSettings.fullscreen ? "exit" : "enter" );
+	},
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.menu.pages && nextProps.menu.pages.length > 0) {
+			this.props.init(nextProps.menu.pages[0])
+		}
+	},
 	render() {
 		return (
 		<div>
 			<Navbar title="Dashboard">
+				<li className="fullscreen" href="javascript:void(0)" onClick={this.fullscreen}><i className="material-icons">{ this.props.appSettings.fullscreen ? "fullscreen_exit" : "fullscreen" }</i></li>
 				<li href="#account_modal"><i className="material-icons">account_circle</i></li>
 				<li href="javascript:void(0)" onClick={this.logout}><i className="material-icons right">exit_to_app</i>Logout</li>
 			</Navbar>
@@ -34,8 +45,8 @@ const Page = React.createClass({
 				{this.props.children}
 			</div>
 			<Modal id="account_modal">
-				<h4>Account info</h4>
-				<p>Em 22 de julho de 1951, o Palmeiras realizou um dos maiores feitos de sua gloriosa trajetória. Foi neste dia, diante da forte e estrelada Juventus de Turim, que o Verdão conquistou o Torneio Internacional de Clubes Campeões, consolidado no futebol como o primeiro campeonato mundial interclubes da história. O grito de campeão veio com uma vitória e um empate diante da Vecchia Signora nas finais, disputadas no Maracanã lotado de brasileiros preenchidos de esperança e alegria no primeiro grande triunfo do Brasil no “período pós-Maracanazo”.</p>
+				<h4>Account Info</h4>
+				<AccountInfo user={this.props.user} />
 			</Modal>
 		</div>
 		);
@@ -45,12 +56,14 @@ const Page = React.createClass({
 function mapStateToProps(state) {
 	return {
 		page: state.page,
-		menu: state.menu
+		menu: state.menu,
+		appSettings: state.appSettings,
+		user: state.user.user
 	}
 }
 
 function mapDispatcherToProps(dispatch) {
-	return bindActionCreators({ applySettings: applySettings, logout: logout }, dispatch);
+	return bindActionCreators({ applySettings: applySettings, logout: logout, fullscreen: fullscreen, loadMenu: loadMenu, init: init }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatcherToProps)(Page);
