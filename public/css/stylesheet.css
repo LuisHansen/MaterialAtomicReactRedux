@@ -284,3 +284,44 @@ nav {
     left: calc(50% - 38px);
     z-index: 100;
 }
+
+.summary {
+	height: 150px;
+}
+
+.summary > .card-content {
+	padding: 0;
+}
+
+.summary > .card-content > .card-title {
+	padding: 15px;
+	background-color: rgba(0,0,0,0.1);
+	color: white;
+	font-weight: 800;
+}
+
+.summary > .card-content > div {
+	padding: 10px;
+	color: white;
+}
+
+.blue {
+	background-color: #76B0BD !important;
+}
+
+.green {
+	background-color: #BDCC2A !important;
+}
+
+.orange {
+	background-color: #FCB53E !important;
+}
+
+.red {
+	background-color: #EA683C !important;
+}
+
+.card {
+	transform: translate(0px, 1.5rem);
+	opacity: 0;
+}

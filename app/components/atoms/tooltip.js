@@ -4,6 +4,9 @@ const Tooltip = React.createClass({
 	componentDidMount() {
 		$('.tooltipped').tooltip({delay: 50});
 	},
+	componentWillUnmount() {
+		// $('.tooltipped').tooltip('remove');
+	},
 	render() {
 		let classes = this.props.className + " tooltipped";
 		return (

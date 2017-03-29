@@ -1,12 +1,13 @@
 import fetch from 'isomorphic-fetch'
-import { login, getLicenses } from './index'
-import { consts } from '../consts/index'
+import { login, getLicenses, fetchSummaryToday } from './index'
 import {reset} from 'redux-form'
+var consts = require('../consts/index');
 
 const loginAsync = (form) => {
 	return function (dispatch) {
 		dispatch(login ( { status: 'REQUESTING' } ));
-		return fetch(consts.baseUrl + consts.loginUrl, {
+
+		return fetch(consts.thisUrl + consts.loginUrl, {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
@@ -14,20 +15,55 @@ const loginAsync = (form) => {
 			},
 			body: JSON.stringify(form)
 		}).then(function(response) {
-			switch (response.status) {
-				case 401:
-					dispatch(reset('login'));
-					dispatch(login ( { status: 'FAIL' } ));
-				break;
-				case 400:
-					dispatch(reset('login'));
-					dispatch(login ( { status: 'FAIL' } ));
-				break;
-				case 200:
-					response.json().then(function(json){
+
+			let json = null;
+
+			return response.json().then(function(json) {
+
+				switch (response.status) {
+					case 401:
+						dispatch(reset('login'));
+						dispatch(login ( { status: 'FAIL' } ));
+					break;
+					case 400:
+						dispatch(reset('login'));
+						dispatch(login ( { status: 'FAIL' } ));
+					break;
+					case 200:
 						let token = json.token;
 						let user = json.user;
 						dispatch(login ( { status: 'SUCCESS', token: token, user: user } ));
+					break;
+				}
+
+				return 0;
+
+			})
+		})
+	}
+}
+
+const getSummaryAsync = (date1, date2, token) => {
+	return function (dispatch) {
+		dispatch(fetchSummaryToday ( { type: 'SUMMARY_TODAY', status: 'REQUESTING' } ));
+
+		return fetch(consts.thisUrl + consts.summaryTodayUrl + "/" + date1 + "/" + date2, {
+			method: 'GET',
+			headers: {
+				'Authorization': token
+			}
+		}).then(function(response) {
+			switch (response.status) {
+				case 400:
+					dispatch(fetchSummaryToday ( { type: 'SUMMARY_TODAY', status: 'FAIL' }));
+				break;
+				case 401:
+					dispatch(fetchSummaryToday ( { type: 'SUMMARY_TODAY', status: 'FAIL' }));
+				break;
+				case 200:
+					return response.json().then(function(json) {
+						let data = json;
+						dispatch(fetchSummaryToday ( { type: 'SUMMARY_TODAY', status: 'SUCCESS', data: data }));
 					})
 				break;
 			}
@@ -38,7 +74,7 @@ const loginAsync = (form) => {
 const getLicensesAsync = (token) => {
 	return function (dispatch) {
 		dispatch(getLicenses ( { status: 'REQUESTING' } ));
-		return fetch(consts.baseUrl + consts.getLicenses, {
+		return fetch(consts.thisUrl + consts.getLicenses, {
 			method: 'GET',
 			headers: {
 				'Accept': 'application/json',
@@ -54,8 +90,8 @@ const getLicensesAsync = (token) => {
 					dispatch(getLicenses ( { status: 'FAIL' } ));
 				break;
 				case 200:
-					response.json().then(function(json){
-						let licenses = json
+					return response.json().then(function(json){
+						let licenses = json;
 						dispatch(getLicenses ( { status: 'SUCCESS', licenses: licenses } ));
 					})
 				break;
@@ -67,7 +103,7 @@ const getLicensesAsync = (token) => {
 const tryFirstLoginAsync = (token) => {
 	return function (dispatch) {
 		dispatch(login( { status: 'REQUESTING' } ));
-		return fetch(consts.baseUrl + consts.tokenUrl, {
+		return fetch(consts.thisUrl + consts.tokenUrl, {
 			method: 'GET',
 			headers: {
 				'Authorization': token
@@ -78,7 +114,7 @@ const tryFirstLoginAsync = (token) => {
 					dispatch(login( { status: 'NO_TOKEN' }));
 				break;
 				case 200:
-					response.json().then(function(json){
+					return response.json().then(function(json){
 						let user = json.user;
 						dispatch(login ( { status: 'SUCCESS', user: user } ));
 					})
@@ -88,4 +124,4 @@ const tryFirstLoginAsync = (token) => {
 	}
 }
 
-export { loginAsync, tryFirstLoginAsync, getLicensesAsync }
+export { loginAsync, tryFirstLoginAsync, getLicensesAsync, getSummaryAsync }

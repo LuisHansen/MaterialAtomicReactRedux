@@ -27,9 +27,9 @@ const Page = React.createClass({
 		this.props.fullscreen( this.props.appSettings.fullscreen ? "exit" : "enter" );
 	},
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.menu.pages && nextProps.menu.pages.length > 0) {
-			this.props.init(nextProps.menu.pages[0])
-		}
+		// if (nextProps.menu.pages && nextProps.menu.pages.length > 0) {
+		// 	this.props.init(nextProps.menu.pages[0])
+		// }
 	},
 	render() {
 		return (

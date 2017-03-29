@@ -14,7 +14,7 @@ const Menu = React.createClass({
 		object.props.menu.pages.forEach(function(page) {
 			let active = (page.title === object.props.page.title);
 			if (object.props.menu.style == "big") {
-				inner = <IconMenu active={active} click={() => object.props.menuClick(page)} className={object.props.className} icon={page.icon}>{page.title}</IconMenu>
+				inner = <IconMenu active={active} click={() => {object.props.menuClick(page)}} className={object.props.className} icon={page.icon}>{page.title}</IconMenu>
 			} else if (object.props.menu.style == "small") {
 				inner = <Tooltip data_tooltip={page.title} data_position="right"><IconMenu active={active} click={() => object.props.menuClick(page)} className={object.props.className} icon={page.icon}></IconMenu></Tooltip>
 			}

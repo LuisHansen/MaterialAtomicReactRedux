@@ -3,6 +3,13 @@ import 'babel-polyfill';
 import React from 'react';
 
 const Card = React.createClass({
+	componentDidMount() {
+		$('.card').each( function(i) {
+			$(this).delay(20*i).transition({ y: '0.5rem', opacity: 1, duration: 200, easing: 'ease' });
+			//$(this).delay(40*i).transition({ y: '0.5rem'});
+			//$(this).delay(40*i).animate({ opacity: 1 }, { duration: 300, queue: false});
+		});	
+	},
 	render() {
 
 		let classe = "card " + this.props.className;

@@ -84,4 +84,15 @@ const getLicenses = (payload) => {
 	}
 }
 
-export { changeChartType, changeChartColors, menuClick, loadMenu, loadTableData, applySettings, changeCompact, login, logout, fullscreen, init, getLicenses }
+
+const fetchSummaryToday = (payload) => {
+	return {
+		type: 'SUMMARY_TODAY',
+		status: payload.status,
+		data: payload.data
+	}
+}
+
+export { changeChartType, changeChartColors, menuClick, loadMenu, loadTableData,
+	applySettings, changeCompact, login, logout, fullscreen, init, getLicenses,
+	fetchSummaryToday }
