@@ -41,7 +41,7 @@ const Page = React.createClass({
 			</Navbar>
 			<Menu menu={this.props.menu}><Icon className="title">{this.props.page.icon}</Icon></Menu>
 			<div className={this.props.menu.style == "big" ? "content" : "content-big" }>
-				<h1>{this.props.page.title}</h1>
+				{ this.props.menu.style != "big" && <div className="page-title">{this.props.page.title}</div> }
 				{this.props.children}
 			</div>
 			<Modal id="account_modal">

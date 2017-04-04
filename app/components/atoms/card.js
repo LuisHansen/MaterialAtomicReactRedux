@@ -15,26 +15,33 @@ const Card = React.createClass({
 		let classe = "card " + this.props.className;
 		let title = [], inner = [], action = [];
 
-    this.props.children
-      .filter(child => typeof child === 'object')
-      .map((child,i)=> {
-			if (child.type === 'title') {
-				title.push(<span key={i} className="card-title">{child.props.children}</span>);
-			} else if (child.props.id === 'action') {
-				action.push(<div key={i} className={child.props.className ? child.props.className + " card-action" : "card-action"}>{child.props.children}</div>);
+		if (this.props.children) {
+			if (this.props.children.length > 0) {
+				this.props.children
+					.filter((child) => { return typeof child == 'object' })
+					.map((child,i)=> {
+						if (child.type == 'title') {
+							title.push(<span key={i} className="card-title">{child.props.children}</span>);
+						} else if (child.props.id == 'action') {
+							action.push(<div key={i} className={child.props.className ? child.props.className + " card-action" : "card-action"}>{child.props.children}</div>);
+						} else {
+							inner.push(child);
+						}
+				});
 			} else {
-				inner.push(child);
+				inner.push(this.props.children);
 			}
-      });
-	return (
-	  <div className={classe}>
-		  <div className="card-content">
-			  {title}
-			  {inner}
+		}
+
+		return (
+		  <div className={classe}>
+			  <div className="card-content">
+				  {title}
+				  {inner}
+			  </div>
+				  {action}
 		  </div>
-			  {action}
-	  </div>
-	);
+		);
 	}
 });
 

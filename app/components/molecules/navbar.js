@@ -2,10 +2,10 @@ import React from 'react';
 import MenuItem from '../atoms/menuItem'
 import Icon from '../atoms/icon'
 
-const Navbar = React.createClass({
+class Navbar extends React.PureComponent {
 	componentDidMount() {
 		$(".button-collapse").sideNav();
-	},
+	}
 	render() {
 		let classe = this.props.className;
 		let itens = [];
@@ -22,8 +22,8 @@ const Navbar = React.createClass({
 		});
 		return (
 			<nav>
-				<div className="nav-wrapper">
-				<a href="javascript:void(0)" className="brand-logo center">{this.props.title}</a>
+				<div className="nav-wrapper hoverable">
+				<a href="javascript:void(0)" className="brand-logo left">{this.props.title}</a>
 				<a href="javascript:void(0)" data-activates="mobile-menu" className="button-collapse"><i className="material-icons">menu</i></a>
 				<ul id="nav-mobile" className="right hide-on-small-only">
 					{itens}
@@ -35,6 +35,6 @@ const Navbar = React.createClass({
 			</nav>
 		);
 	}
-});
+}
 
 export default Navbar;

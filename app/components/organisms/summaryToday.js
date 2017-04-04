@@ -8,18 +8,19 @@ import Tooltip from '../atoms/tooltip'
 import Card from '../atoms/card'
 import Icon from '../atoms/icon'
 import IconMenu from '../molecules/iconMenu'
+import { menuClick } from '../../actions/index'
 import { getSummaryAsync } from '../../actions/async'
 
-const SummaryToday = React.createClass({
+class SummaryToday extends React.PureComponent {
 	populateData() {
 		let TODAY = moment( new Date(config.today).toISOString()).add(1, 'days');
-		console.log("Today is", moment(TODAY).subtract(1, 'days').format("YYYYMMDD"));
+		console.log("Today is", moment(TODAY).subtract(1, 'days').format("DD/MM/YYYY"));
 		let THIRTYDAYS = moment(TODAY).subtract(1, 'months');
 		this.props.getSummaryAsync(THIRTYDAYS.format("YYYYMMDD"), TODAY.format("YYYYMMDD"), localStorage.getItem("token"))
-	},
+	}
 	componentWillMount() {
 		this.populateData();
-	},
+	}
 	getPercentage() {
 		let data = this.props.summary.data;
 		data = data.reduce(function(previousValue, currentValue, currentIndex, array){
@@ -32,11 +33,11 @@ const SummaryToday = React.createClass({
 			let average = ((vm.success/ (vm.success+ vm.warnings + vm.failures))* 100).toPrecision(4);
 			return average;
 		}
-	},
+	}
 	today() {
 		let TODAY = moment( new Date(config.today).toISOString());
 		return this.props.summary.data.filter((obj) => { return obj.date == TODAY.format("YYYYMMDD")})[0];
-	},
+	}
 	render() {
 		if (this.props.summary.requesting) {
 			return (
@@ -44,31 +45,43 @@ const SummaryToday = React.createClass({
 			)
 		} else if (this.props.summary.loaded) {
 			return (
-				<div>
-					<div className="row">
-						<div className="col s3">
-						<Card className="blue summary">
-							<title><Icon className="left">history</Icon>{this.today() ? this.getPercentage() + "%" : "--"}</title>
-							<div>Taxa de sucesso nas últimas 24 horas</div>
-						</Card>
+				<div className="horizontal summary-container">
+					<div className="row no-margin">
+						<div className="col l3 m6 s12 col-summary">
+						<div className="first summary" onClick={() => this.props.menuClick({title: "Dashboard", template: "DashboardSummary", icon:"dashboard"})}>
+							<div className="title-summary"><Icon className="big left">history</Icon></div>
+							<div className="content-summary"><div className="id-summary">Taxa de sucesso</div>
+							<div className="stats-summary">{this.today() ? this.getPercentage() + "%" : "--"}</div>
+							</div>
+
 						</div>
-						<div className="col s3">
-						<Card className="green summary">
-							<title><Icon className="left">thumb_up</Icon>{this.today() ? this.today().success : "--"}</title>
-							<div>Número de Sucessos</div>
-						</Card>
 						</div>
-						<div className="col s3">
-						<Card className="orange summary">
-							<title><Icon className="left">warning</Icon>{this.today() ? this.today().warnings : "--"}</title>
-							<div>Número de Avisos</div>
-						</Card>
+						<div className="col l3 m6 s12 col-summary">
+						<div className="second summary" onClick={() => this.props.menuClick({title: "Dashboard", template: "DashboardSuccess", icon:"dashboard"})}>
+							<div className="title-summary"><Icon className="big left">thumb_up</Icon></div>
+							<div className="content-summary"><div className="id-summary">Jobs com sucesso</div>
+							<div className="stats-summary">{this.today() ? this.today().success : "--"}</div>
+							</div>
+
 						</div>
-						<div className="col s3">
-						<Card className="red summary">
-							<title><Icon className="left">thumb_down</Icon>{this.today() ? this.today().failures : "--"}</title>
-							<div>Número de Falhas</div>
-						</Card>
+						</div>
+						<div className="col l3 m6 s12 col-summary">
+						<div className="third summary" onClick={() => this.props.menuClick({title: "Dashboard", template: "DashboardWarning", icon:"dashboard"})}>
+							<div className="title-summary"><Icon className="big left">warning</Icon></div>
+							<div className="content-summary"><div className="id-summary">Jobs com aviso</div>
+							<div className="stats-summary">{this.today() ? this.today().warnings : "--"}</div>
+							</div>
+
+						</div>
+						</div>
+						<div className="col l3 m6 s12 col-summary">
+						<div className="fourth summary" onClick={() => this.props.menuClick({title: "Dashboard", template: "DashboardFailures", icon:"dashboard"})}>
+							<div className="title-summary"><Icon className="big left">thumb_down</Icon></div>
+							<div className="content-summary"><div className="id-summary">Jobs com falha</div>
+							<div className="stats-summary">{this.today() ? this.today().failures : "--"}</div>
+							</div>
+
+						</div>
 						</div>
 					</div>
 				</div>
@@ -80,17 +93,18 @@ const SummaryToday = React.createClass({
 			</div>
 		);
 	}
-});
+}
 
 function mapStateToProps(state) {
 	return {
 		user: state.user.user,
-		summary: state.summary
+		summary: state.summary,
+		page: state.page
 	}
 }
 
 function mapDispatcherToProps(dispatch) {
-	return bindActionCreators({ getSummaryAsync: getSummaryAsync }, dispatch);
+	return bindActionCreators({ getSummaryAsync: getSummaryAsync, menuClick: menuClick }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatcherToProps)(SummaryToday);
