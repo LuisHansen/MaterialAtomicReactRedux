@@ -84,6 +84,14 @@ const getLicenses = (payload) => {
 	}
 }
 
+const getWarnings = (payload) => {
+	return {
+		type: 'GET_WARNINGS',
+		status: payload.status,
+		payload: payload.data
+	}
+}
+
 
 const fetchSummaryToday = (payload) => {
 	return {
@@ -93,6 +101,20 @@ const fetchSummaryToday = (payload) => {
 	}
 }
 
+const showAccount = () => {
+	return {
+		type: 'TOGGLE_ACCOUNT_INFO'
+	}
+}
+
+const getDrilldown = (payload) => {
+	return {
+		type: 'GET_DRILLDOWN',
+		status: payload.status,
+		data: payload.data
+	}
+}
+
 export { changeChartType, changeChartColors, menuClick, loadMenu, loadTableData,
 	applySettings, changeCompact, login, logout, fullscreen, init, getLicenses,
-	fetchSummaryToday }
+	fetchSummaryToday, showAccount, getDrilldown, getWarnings }

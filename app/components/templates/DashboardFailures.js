@@ -14,11 +14,11 @@ import { changeChartType } from '../../actions/index'
 import { bindActionCreators } from 'redux'
 
 
-const DashboardSuccess = React.createClass({
+const DashboardFailures = React.createClass({
 	render() { return (
 		<div>
 			<SummaryToday />
-			<BackDashboard></BackDashboard>
+			<BackDashboard />
 		</div>
 		);
 	}
@@ -34,4 +34,4 @@ function mapDispatcherToProps(dispatch) {
 	// return bindActionCreators({ changeChartType: changeChartType }, dispatch);
 }
 
-export default connect(null, null)(DashboardSuccess);
+export default connect(null, null)(DashboardFailures);

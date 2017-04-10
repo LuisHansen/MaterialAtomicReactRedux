@@ -15,10 +15,10 @@ const RealTimeJobs = React.createClass({
 					<div className="col l6 m6 s12 rtj second">
 						<div className="rtj-title">Próximos jobs</div>
 						<ol className="rtj-list">
-								<li className="first-job">Blow</li>
-								<li className="first-job">Hand</li>
-								<li>Steve</li>
-								<li>Rib</li>
+								<li className="first-job">First job</li>
+								<li className="first-job">Second</li>
+								<li>Third job</li>
+								<li>Steve Jobs</li>
 								<li>IDK</li>
 						</ol>
 					</div>

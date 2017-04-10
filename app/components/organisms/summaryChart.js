@@ -8,9 +8,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 var SummaryChart = React.createClass({
-	handleSubmit(values) {
-		console.log(values);
-	},
 	formatData() {
 		let legend = [];
 		this.props.summary.data.map((day) => {
@@ -42,42 +39,21 @@ var SummaryChart = React.createClass({
 				    labels: labels,
 				    datasets: [
 				        {
-				            label: "Success rate",
-				            fill: true,
-				            lineTension: 0.3,
-				            backgroundColor: "rgba(256,256,256,0.1)",
-				            borderColor: "#FEE8EA",
-				            borderCapStyle: 'butt',
-				            borderDash: [],
-				            borderDashOffset: 0.0,
-				            borderJoinStyle: 'miter',
-				            pointBorderColor: "#FEE8EA",
-				            pointBackgroundColor: "#fff",
-				            pointBorderWidth: 5,
-				            pointHoverRadius: 5,
-				            pointHoverBackgroundColor: "#FEE8EA",
-				            pointHoverBorderColor: "#FEE8EA",
-				            pointHoverBorderWidth: 2,
-				            pointRadius: 1,
-				            pointHitRadius: 10,
-				            data: dataSucces,
-				            spanGaps: false,
-				        }, {
 				            label: "Warning rate",
 				            fill: true,
 				            lineTension: 0.3,
-				            backgroundColor: "rgba(256,256,256,0.1)",
-				            borderColor: "#FEE8EA",
+				            backgroundColor: "rgba(252,181,62,0.3)",
+				            borderColor: "rgb(252,181,62)",
 				            borderCapStyle: 'butt',
 				            borderDash: [],
 				            borderDashOffset: 0.0,
 				            borderJoinStyle: 'miter',
-				            pointBorderColor: "#FEE8EA",
-				            pointBackgroundColor: "#fff",
+				            pointBorderColor: "rgb(252,181,62)",
+				            pointBackgroundColor: "rgb(252,181,62)",
 				            pointBorderWidth: 5,
 				            pointHoverRadius: 5,
-				            pointHoverBackgroundColor: "#FEE8EA",
-				            pointHoverBorderColor: "#FEE8EA",
+				            pointHoverBackgroundColor: "rgb(252,181,62)",
+				            pointHoverBorderColor: "rgb(252,181,62)",
 				            pointHoverBorderWidth: 2,
 				            pointRadius: 1,
 				            pointHitRadius: 10,
@@ -87,29 +63,53 @@ var SummaryChart = React.createClass({
 				            label: "Failure rate",
 				            fill: true,
 				            lineTension: 0.3,
-				            backgroundColor: "rgba(256,256,256,0.1)",
-				            borderColor: "#FEE8EA",
+				            backgroundColor: "rgba(244, 67, 54, 0.8)",
+				            borderColor: "#F44336",
 				            borderCapStyle: 'butt',
 				            borderDash: [],
 				            borderDashOffset: 0.0,
 				            borderJoinStyle: 'miter',
-				            pointBorderColor: "#FEE8EA",
-				            pointBackgroundColor: "#fff",
+				            pointBorderColor: "#F44336",
+				            pointBackgroundColor: "#F44336",
 				            pointBorderWidth: 5,
 				            pointHoverRadius: 5,
-				            pointHoverBackgroundColor: "#FEE8EA",
-				            pointHoverBorderColor: "#FEE8EA",
+				            pointHoverBackgroundColor: "#F44336",
+				            pointHoverBorderColor: "#F44336",
 				            pointHoverBorderWidth: 2,
 				            pointRadius: 1,
 				            pointHitRadius: 10,
 				            data: dataFailures,
 				            spanGaps: false,
+				        },{
+				            label: "Success rate",
+				            fill: true,
+				            lineTension: 0.3,
+				            backgroundColor: "rgba(189,204,42,0.5)",
+				            borderColor: "rgb(189,204,42)",
+				            borderCapStyle: 'butt',
+				            borderDash: [],
+				            borderDashOffset: 0.0,
+				            borderJoinStyle: 'miter',
+				            pointBorderColor: "rgb(189,204,42)",
+				            pointBackgroundColor: "rgb(189,204,42)",
+				            pointBorderWidth: 5,
+				            pointHoverRadius: 5,
+				            pointHoverBackgroundColor: "rgb(189,204,42)",
+				            pointHoverBorderColor: "rgb(189,204,42)",
+				            pointHoverBorderWidth: 2,
+				            pointRadius: 1,
+				            pointHitRadius: 10,
+				            data: dataSucces,
+				            spanGaps: false,
 				        }
 				    ]
 				},
 				options: {
+					tooltips: {
+						mode: 'label'
+					},
 					legend: {
-						display: false,
+						display: true,
 						labels: {
 							display: false
 						}
@@ -122,7 +122,7 @@ var SummaryChart = React.createClass({
 								lineWidth: 2,
 								drawBorder: false
 							},
-							display: false,
+							display: true,
 							ticks: {
 								mirror: true,
 								minRotation: 45,
@@ -142,13 +142,18 @@ var SummaryChart = React.createClass({
 							ticks: {
 								mirror: false,
 								display: true,
-								fontColor: '#FEE8EA'
+								fontColor: '#3A3F51',
+								beginAtZero: true,
+								fontStyle: 'bold'
 							}
 						}]
 					}
 				}  
 			}
 		);
+	},
+	handleSubmit(values) {
+		console.log(values);
 	},
 	render() {
 		if (this.props.summary.loaded) {
@@ -158,7 +163,7 @@ var SummaryChart = React.createClass({
 					<div className="summary30days col s12">
 						<div className="chart-title">History chart <Chart30DaysForm onSubmit={this.handleSubmit} /></div>
 						<div className="chartDiv">
-							<Graph id="summaryChart" width="100" height="20" config={this.formatData()} />
+							<Graph id="summaryChart" width="100" height="30" config={this.formatData()} />
 						</div>
 					</div>
 				</div>

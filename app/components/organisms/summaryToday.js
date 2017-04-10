@@ -19,7 +19,9 @@ class SummaryToday extends React.PureComponent {
 		this.props.getSummaryAsync(THIRTYDAYS.format("YYYYMMDD"), TODAY.format("YYYYMMDD"), localStorage.getItem("token"))
 	}
 	componentWillMount() {
-		this.populateData();
+		if (this.props.summary.loaded == false) {
+			this.populateData();
+		}
 	}
 	getPercentage() {
 		let data = this.props.summary.data;
@@ -48,7 +50,7 @@ class SummaryToday extends React.PureComponent {
 				<div className="horizontal summary-container">
 					<div className="row no-margin">
 						<div className="col l3 m6 s12 col-summary">
-						<div className="first summary" onClick={() => this.props.menuClick({title: "Dashboard", template: "DashboardSummary", icon:"dashboard"})}>
+						<div className={ this.props.page.template == 'DashboardSummary' ? 'first summary active' : 'first summary' } onClick={() => this.props.menuClick({title: "Dashboard", template: "DashboardSummary", icon:"dashboard", subPage:"Summary"})}>
 							<div className="title-summary"><Icon className="big left">history</Icon></div>
 							<div className="content-summary"><div className="id-summary">Taxa de sucesso</div>
 							<div className="stats-summary">{this.today() ? this.getPercentage() + "%" : "--"}</div>
@@ -57,7 +59,7 @@ class SummaryToday extends React.PureComponent {
 						</div>
 						</div>
 						<div className="col l3 m6 s12 col-summary">
-						<div className="second summary" onClick={() => this.props.menuClick({title: "Dashboard", template: "DashboardSuccess", icon:"dashboard"})}>
+						<div className={ this.props.page.template == 'DashboardSuccess' ? 'second summary active' : 'second summary' } onClick={() => this.props.menuClick({title: "Dashboard", template: "DashboardSuccess", icon:"dashboard", subPage:"Success"})}>
 							<div className="title-summary"><Icon className="big left">thumb_up</Icon></div>
 							<div className="content-summary"><div className="id-summary">Jobs com sucesso</div>
 							<div className="stats-summary">{this.today() ? this.today().success : "--"}</div>
@@ -66,7 +68,7 @@ class SummaryToday extends React.PureComponent {
 						</div>
 						</div>
 						<div className="col l3 m6 s12 col-summary">
-						<div className="third summary" onClick={() => this.props.menuClick({title: "Dashboard", template: "DashboardWarning", icon:"dashboard"})}>
+						<div className={ this.props.page.template == 'DashboardWarning' ? 'third summary active' : 'third summary' } onClick={() => this.props.menuClick({title: "Dashboard", template: "DashboardWarning", icon:"dashboard", subPage:"Warnings"})}>
 							<div className="title-summary"><Icon className="big left">warning</Icon></div>
 							<div className="content-summary"><div className="id-summary">Jobs com aviso</div>
 							<div className="stats-summary">{this.today() ? this.today().warnings : "--"}</div>
@@ -75,7 +77,7 @@ class SummaryToday extends React.PureComponent {
 						</div>
 						</div>
 						<div className="col l3 m6 s12 col-summary">
-						<div className="fourth summary" onClick={() => this.props.menuClick({title: "Dashboard", template: "DashboardFailures", icon:"dashboard"})}>
+						<div className={ this.props.page.template == 'DashboardFailures' ? 'fourth summary active' : 'fourth summary' } onClick={() => this.props.menuClick({title: "Dashboard", template: "DashboardFailures", icon:"dashboard", subPage:"Failures"})}>
 							<div className="title-summary"><Icon className="big left">thumb_down</Icon></div>
 							<div className="content-summary"><div className="id-summary">Jobs com falha</div>
 							<div className="stats-summary">{this.today() ? this.today().failures : "--"}</div>

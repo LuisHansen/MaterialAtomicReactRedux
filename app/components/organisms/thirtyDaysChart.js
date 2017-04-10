@@ -36,18 +36,18 @@ var ThirtyDaysChart = React.createClass({
 				            label: "Success rate",
 				            fill: true,
 				            lineTension: 0.3,
-				            backgroundColor: "rgba(256,256,256,0.1)",
-				            borderColor: "#FEE8EA",
+				            backgroundColor: "rgba(189,204,42,0.5)",
+				            borderColor: "rgb(189,204,42)",
 				            borderCapStyle: 'butt',
 				            borderDash: [],
 				            borderDashOffset: 0.0,
 				            borderJoinStyle: 'miter',
-				            pointBorderColor: "#FEE8EA",
-				            pointBackgroundColor: "#fff",
+				            pointBorderColor: "rgb(189,204,42)",
+				            pointBackgroundColor: "rgb(189,204,42)",
 				            pointBorderWidth: 5,
 				            pointHoverRadius: 5,
-				            pointHoverBackgroundColor: "#FEE8EA",
-				            pointHoverBorderColor: "#FEE8EA",
+				            pointHoverBackgroundColor: "rgb(189,204,42)",
+				            pointHoverBorderColor: "rgb(189,204,42)",
 				            pointHoverBorderWidth: 2,
 				            pointRadius: 1,
 				            pointHitRadius: 10,
@@ -91,7 +91,8 @@ var ThirtyDaysChart = React.createClass({
 							ticks: {
 								mirror: false,
 								display: true,
-								fontColor: '#FEE8EA'
+								fontColor: 'rgb(149,164,2)',
+								fontStyle: 'bold'
 							}
 						}]
 					}

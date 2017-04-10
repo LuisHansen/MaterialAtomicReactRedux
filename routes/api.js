@@ -46,4 +46,23 @@ router.route('/modules/dashboard/jobs/:start/:end')
 		});
 	})
 
+router.route('/modules/dashboard/jobs/drilldown/:start/:end')
+	/** GET /api/modules/dashboard/jobs/drilldown/:start/:end */
+	.get(function(req, res, next) {
+		let start = req.params.start;
+		let end = req.params.end;
+		request.get(consts.baseUrl + '/api/modules/dashboard/jobs/drilldown/' + start + "/" + end, { headers: Object.assign(req.headers, { 'Accept-Encoding': 'application/json' }) }, function(err, httpResponse, body) {
+			res.status(httpResponse.statusCode).send(body);
+		});
+	})
+
+router.route('/modules/dashboard/warnings/:date')
+	/** GET /api/modules/dashboard/warnings/:date */
+	.get(function(req, res, next) {
+		let date = req.params.date;
+		request.get(consts.baseUrl + '/api/modules/dashboard/warnings/' + date, { headers: Object.assign(req.headers, { 'Accept-Encoding': 'application/json' }) }, function(err, httpResponse, body) {
+			res.status(httpResponse.statusCode).send(body);
+		});
+	})
+
 module.exports = router;

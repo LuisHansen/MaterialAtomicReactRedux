@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { login, getLicenses, fetchSummaryToday } from './index'
+import { login, getLicenses, fetchSummaryToday, getDrilldown, getWarnings } from './index'
 import {reset} from 'redux-form'
 var consts = require('../consts/index');
 
@@ -39,6 +39,56 @@ const loginAsync = (form) => {
 				return 0;
 
 			})
+		})
+	}
+}
+
+const getDrilldownAsync = (date1, date2, token) => {
+	return function (dispatch) {
+		dispatch(getDrilldown( { status: 'REQUESTING' } ));
+
+		return fetch(consts.thisUrl + consts.drilldownUrl + "/" + date1 + "/" + date2, {
+			method: 'GET',
+			headers: {
+				'Authorization': token
+			}
+		}).then(function(response) {
+			switch (response.status) {
+				case 200:
+					return response.json().then(function(json) {
+						dispatch(getDrilldown( { status: 'SUCCESS', data: json } ));
+					})
+				break;
+
+				default:
+					dispatch(getDrilldown( { status: 'FAIL' } ));
+				break;
+			}
+		})
+	}
+}
+
+const getWarningsAsync = (date, token) => {
+	return function (dispatch) {
+		dispatch(getWarnings( { status: 'REQUESTING' } ));
+
+		return fetch(consts.thisUrl + consts.warningsUrl + "/" + date, {
+			method: 'GET',
+			headers: {
+				'Authorization': token
+			}
+		}).then(function(response) {
+			switch (response.status) {
+				case 200:
+					return response.json().then(function(json) {
+						dispatch(getWarnings( { status: 'SUCCESS', data: json } ));
+					})
+				break;
+
+				default:
+					dispatch(getWarnings( { status: 'FAIL' } ));
+				break;
+			}
 		})
 	}
 }
@@ -124,4 +174,4 @@ const tryFirstLoginAsync = (token) => {
 	}
 }
 
-export { loginAsync, tryFirstLoginAsync, getLicensesAsync, getSummaryAsync }
+export { loginAsync, tryFirstLoginAsync, getLicensesAsync, getSummaryAsync, getDrilldownAsync, getWarningsAsync }

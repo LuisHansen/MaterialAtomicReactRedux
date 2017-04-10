@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Spinner from '../atoms/spinner'
 import Tooltip from '../atoms/tooltip'
 import IconMenu from '../molecules/iconMenu'
+import AccountInfo from '../molecules/accountInfo'
 import { menuClick, loadMenu } from '../../actions/index'
 
 const Menu = React.createClass({
@@ -52,6 +53,7 @@ const Menu = React.createClass({
 				</div>
 			}
 			<ul>
+				<AccountInfo />
 				{ this.props.menu.style == "big" &&
 					<li className="menutitle">
 						<h3>{this.props.children}</h3>

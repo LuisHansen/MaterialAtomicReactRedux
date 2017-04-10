@@ -2,6 +2,7 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 
 var TestForm = React.createClass({
+	syncErrors: {},
 	render() {
 		const { handleSubmit } = this.props;
 	    return (
@@ -17,6 +18,9 @@ var TestForm = React.createClass({
 				<div className="input-field">
 				  <Field id="email" name="email" component="input" type="email"/>
 				  <label htmlFor="email">Email</label>
+				</div>
+				<div className="input-field">
+					<Field id="start" name="start" component="input" type="date"/>
 				</div>
 				<button className="btn waves-effect waves-light" type="submit"><i className="material-icons right">send</i>Submit</button>
 			</form>

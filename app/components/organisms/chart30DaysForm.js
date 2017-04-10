@@ -1,6 +1,5 @@
 import React from 'react'
-import { reduxForm } from 'redux-form'
-import Datepicker from '../atoms/datepicker'
+import { Field, reduxForm } from 'redux-form'
 import Icon from '../atoms/icon'
 import Tooltip from '../atoms/tooltip'
 import IconTooltipped from '../molecules/iconTooltipped'
@@ -9,9 +8,17 @@ var Chart30DaysForm = React.createClass({
 	render() {
 		const { handleSubmit } = this.props;
 	    return (
-	    	<div>
+	    	<div className="formInline">
 		    	<form onSubmit={handleSubmit}>
-		    		<div><Datepicker name="start">Starting date</Datepicker><Datepicker name="end">End date</Datepicker><button className="waves-effect waves-light btn-flat" type="submit">Submit</button></div>
+					<div className="input-field start-date">
+						<Field id="start" name="start" component="input" type="date"/>
+						<label htmlFor="start" className="active">Start date</label>
+					</div>
+					<div className="input-field end-date">
+						<Field id="end" name="end" component="input" type="date"/>
+						<label htmlFor="end" className="active">End date</label>
+					</div>
+					<button className="waves-effect waves-light btn-flat" type="submit"><i className="material-icons right">send</i>Submit</button>
 				</form>
 			</div>
 	    );

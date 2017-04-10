@@ -9,16 +9,18 @@ import Tooltip from '../atoms/tooltip'
 import RealTimeJobs from '../organisms/realTimeJobs'
 import SummaryToday from '../organisms/summaryToday'
 import SummaryChart from '../organisms/summaryChart'
+import DashboardWarnings from '../organisms/dashboardWarnings'
 import { connect } from 'react-redux'
 import { changeChartType } from '../../actions/index'
 import { bindActionCreators } from 'redux'
 
 
-const DashboardSuccess = React.createClass({
+const DashboardWarning = React.createClass({
 	render() { return (
 		<div>
 			<SummaryToday />
 			<BackDashboard></BackDashboard>
+			<DashboardWarnings />
 		</div>
 		);
 	}
@@ -34,4 +36,4 @@ function mapDispatcherToProps(dispatch) {
 	// return bindActionCreators({ changeChartType: changeChartType }, dispatch);
 }
 
-export default connect(null, null)(DashboardSuccess);
+export default connect(null, null)(DashboardWarning);

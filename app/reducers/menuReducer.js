@@ -10,7 +10,7 @@ var veritas = {
 	pages: [{title: "Licenses", template: "Licenses", icon: "vpn_key"}]
 }
 
-var empty = { style: "big", pages : [] };
+var empty = { style: "big", "account": "hidden", pages : [] };
 
 export default function (state=empty, action) {
 	switch (action.type) {
@@ -24,6 +24,10 @@ export default function (state=empty, action) {
 				return Object.assign({}, state, veritas);
 			}
 			return Object.assign({}, state, commom);
+		break;
+
+		case 'TOGGLE_ACCOUNT_INFO':
+			return Object.assign({}, state, { "account": state.account == "show" ? "hide" : "show" });
 		break;
 
 		case 'CHANGE_COMPACT':
