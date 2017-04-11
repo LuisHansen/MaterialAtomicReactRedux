@@ -11,6 +11,7 @@ import tablesReducer from './tablesReducer'
 import app from './app'
 import licensesReducer from './licensesReducer'
 import summaryReducer from './summaryReducer'
+import failuresReducer from './failuresReducer'
 
 
 const lastAction = function (state=null, action) {
@@ -30,7 +31,8 @@ const allReducers = combineReducers({
 	licenses: licensesReducer,
 	summary: summaryReducer,
 	drilldown: drilldownReducer,
-	warnings: warningsReducer
+	warnings: warningsReducer,
+	failures: failuresReducer
 });
 
 export default allReducers;

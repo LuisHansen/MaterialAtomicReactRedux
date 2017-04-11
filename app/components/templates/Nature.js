@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import TestForm from '../organisms/testForm'
+import TestForm from '../organisms/forms/testForm'
 
 
 const Nature = React.createClass({

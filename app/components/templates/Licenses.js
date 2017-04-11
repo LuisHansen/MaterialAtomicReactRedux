@@ -8,8 +8,8 @@ import Spinner from '../atoms/spinner'
 import Tooltip from '../atoms/tooltip'
 import Card from '../atoms/card'
 import IconButton from '../molecules/iconButton'
-import ChartControlForm from '../organisms/chartControlForm'
-import MenuControlForm from '../organisms/menuControlForm'
+import ChartControlForm from '../organisms/forms/chartControlForm'
+import MenuControlForm from '../organisms/forms/menuControlForm'
 import { getLicensesAsync } from '../../actions/async'
 
 

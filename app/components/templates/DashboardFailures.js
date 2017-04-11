@@ -8,7 +8,9 @@ import Graph from '../atoms/graph'
 import Tooltip from '../atoms/tooltip'
 import RealTimeJobs from '../organisms/realTimeJobs'
 import SummaryToday from '../organisms/summaryToday'
-import SummaryChart from '../organisms/summaryChart'
+import FailuresJobType from '../organisms/failuresJobType'
+import TableFailures from '../organisms/tables/tableFailures'
+import FailuresMasterServer from '../organisms/charts/failuresMasterServer'
 import { connect } from 'react-redux'
 import { changeChartType } from '../../actions/index'
 import { bindActionCreators } from 'redux'
@@ -19,6 +21,11 @@ const DashboardFailures = React.createClass({
 		<div>
 			<SummaryToday />
 			<BackDashboard />
+			<div className="row">
+				<FailuresMasterServer />
+				<FailuresJobType />
+			</div>
+			<TableFailures />
 		</div>
 		);
 	}

@@ -65,4 +65,13 @@ router.route('/modules/dashboard/warnings/:date')
 		});
 	})
 
+router.route('/modules/dashboard/failures/:date')
+	/** GET /api/modules/dashboard/failures/:date */
+	.get(function(req, res, next) {
+		let date = req.params.date;
+		request.get(consts.baseUrl + '/api/modules/dashboard/failures/' + date, { headers: Object.assign(req.headers, { 'Accept-Encoding': 'application/json' }) }, function(err, httpResponse, body) {
+			res.status(httpResponse.statusCode).send(body);
+		});
+	})
+
 module.exports = router;

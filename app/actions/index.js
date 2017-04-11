@@ -115,6 +115,14 @@ const getDrilldown = (payload) => {
 	}
 }
 
+const getFailures = (payload) => {
+	return {
+		type: 'GET_FAILURES',
+		status: payload.status,
+		data: payload.data
+	}
+}
+
 export { changeChartType, changeChartColors, menuClick, loadMenu, loadTableData,
 	applySettings, changeCompact, login, logout, fullscreen, init, getLicenses,
-	fetchSummaryToday, showAccount, getDrilldown, getWarnings }
+	fetchSummaryToday, showAccount, getDrilldown, getWarnings, getFailures }

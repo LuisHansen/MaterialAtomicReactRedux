@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { login, getLicenses, fetchSummaryToday, getDrilldown, getWarnings } from './index'
+import { login, getLicenses, fetchSummaryToday, getDrilldown, getWarnings, getFailures } from './index'
 import {reset} from 'redux-form'
 var consts = require('../consts/index');
 
@@ -93,6 +93,31 @@ const getWarningsAsync = (date, token) => {
 	}
 }
 
+const getFailuresAsync = (date, token) => {
+	return function (dispatch) {
+		dispatch(getFailures( { status: 'REQUESTING' } ));
+
+		return fetch(consts.thisUrl + consts.failuresUrl + "/" + date, {
+			method: 'GET',
+			headers: {
+				'Authorization': token
+			}
+		}).then(function(response) {
+			switch (response.status) {
+				case 200:
+					return response.json().then(function(json) {
+						dispatch(getFailures( { status: 'SUCCESS', data: json } ));
+					})
+				break;
+
+				default:
+					dispatch(getFailures( { status: 'FAIL' } ));
+				break;
+			}
+		})
+	}
+}
+
 const getSummaryAsync = (date1, date2, token) => {
 	return function (dispatch) {
 		dispatch(fetchSummaryToday ( { type: 'SUMMARY_TODAY', status: 'REQUESTING' } ));
@@ -174,4 +199,4 @@ const tryFirstLoginAsync = (token) => {
 	}
 }
 
-export { loginAsync, tryFirstLoginAsync, getLicensesAsync, getSummaryAsync, getDrilldownAsync, getWarningsAsync }
+export { loginAsync, tryFirstLoginAsync, getLicensesAsync, getSummaryAsync, getDrilldownAsync, getWarningsAsync, getFailuresAsync }
