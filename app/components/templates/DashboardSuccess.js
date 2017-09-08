@@ -8,7 +8,7 @@ import Graph from '../atoms/graph'
 import Tooltip from '../atoms/tooltip'
 import RealTimeJobs from '../organisms/realTimeJobs'
 import SummaryToday from '../organisms/summaryToday'
-import SummaryChart from '../organisms/charts/summaryChart'
+import ThirtyDaysChart from '../organisms/charts/thirtyDaysChart'
 import { connect } from 'react-redux'
 import { changeChartType } from '../../actions/index'
 import { bindActionCreators } from 'redux'
@@ -19,19 +19,26 @@ const DashboardSuccess = React.createClass({
 		<div>
 			<SummaryToday />
 			<BackDashboard></BackDashboard>
+			<ThirtyDaysChart />
+			<div className="row">
+				<div className="col s12">
+					<Graph id="grafico1" width="200" height="100" config={this.props.graphs}></Graph>
+				</div>	
+			</div>
+
 		</div>
 		);
 	}
 });
 
 function mapStateToProps(state) {
-	// return {
-	// 	graphs: state.graphs
-	// }
+	return {
+		graphs: state.graphs
+	}
 }
 
 function mapDispatcherToProps(dispatch) {
 	// return bindActionCreators({ changeChartType: changeChartType }, dispatch);
 }
 
-export default connect(null, null)(DashboardSuccess);
+export default connect(mapStateToProps, null)(DashboardSuccess);

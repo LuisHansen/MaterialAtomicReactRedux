@@ -551,6 +551,7 @@ img#user-pic {
     margin: auto;
     text-align: center;
     margin-top: 20px;
+    margin-bottom: -20px;
 }
 
 .account-info.small {
@@ -598,4 +599,18 @@ img#logo-dashboard {
 .tabs .tab a:hover,.tabs .tab a.active {
     background-color: transparent;
     color: #f44336;
+}
+
+li.menufooter {
+    top: calc(100% - 60px);
+    position: absolute;
+    margin-left: 30px;
+}
+
+.menufooter>div>img {
+    width: 150px;
+}
+
+.menufooter>div {
+    display: flex;
 }

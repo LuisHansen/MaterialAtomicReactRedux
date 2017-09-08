@@ -1,24 +1,28 @@
 import React from 'react'
 import moment from 'moment'
-import Card from '../atoms/card'
-import Graph from '../atoms/graph'
-import Icon from '../atoms/icon'
-var config = require('../../../config.js');
-import { getWarningsAsync } from '../../actions/async'
+import Card from '../../atoms/card'
+import Graph from '../../atoms/graph'
+import Icon from '../../atoms/icon'
+var config = require('../../../../config.js');
+import { getCockpitAsync } from '../../../actions/async'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-var DashboardWarnings = React.createClass({
+var CockpitTime = React.createClass({
 	componentWillMount() {
-		if (this.props.warnings.loaded == false && this.props.warnings.requesting == false) {
+		if (this.props.cockpit.loaded == false && this.props.cockpit.requesting == false) {
 			let TODAY = moment( new Date(config.today).toISOString());
-			this.props.getWarningsAsync(TODAY.add(1, 'days').format("YYYYMMDD"), localStorage.getItem("token"));
+			this.props.getCockpitAsync(TODAY.format("YYYYMMDD"), localStorage.getItem("token"));
 		}
 	},
 	initialization() {
 		setTimeout(() => {
 			$(document).ready(function(){
-				$('#tableWarnings').DataTable();
+				var table = $('#cockpitTime').DataTable({
+					"bFilter": false,
+					"order": [[2,'desc']],
+					paging: false
+				});
 			});
 		},0)
 	},
@@ -28,18 +32,16 @@ var DashboardWarnings = React.createClass({
 				<th>Master Server</th>
 				<th>Nome da política</th>
 				<th>Nome do cliente</th>
-				<th>Job ID</th>
 			</tr>
 		</thead>);
 		let body = [];
 		let index = 0;
-		this.props.warnings.data.map((warning) => {
+		this.props.cockpit.data.time.map((fail) => {
 			body.push(
 				<tr key={index++} >
-					<td>{warnings.MasterServer}</td>
-					<td>{warnings.policyName}</td>
-					<td>{warnings.clientName}</td>
-					<td>{warnings.JobID}</td>
+					<td>{fail.MasterServer}</td>
+					<td>{fail.PolicyName}</td>
+					<td>{fail.ClientName}</td>
 				</tr>
 			);
 		})
@@ -47,14 +49,14 @@ var DashboardWarnings = React.createClass({
 			<tbody>{body}</tbody>
 		);
 		return (
-			<table id="tableWarnings">
+			<table id="cockpitTime">
 				{head}
 				{bodyOutter}
 			</table>
 		);
 	},
 	render() {
-		if (this.props.warnings.loaded) {
+		if (this.props.cockpit.loaded) {
 			return (
 				<div className="col s12 m12 l12">
 					{this.populateTable()}
@@ -71,12 +73,12 @@ var DashboardWarnings = React.createClass({
 
 function mapStateToProps(state) {
 	return {
-		warnings: state.warnings
+		cockpit: state.cockpit
 	}
 }
 
 function mapDispatcherToProps(dispatch) {
-	return bindActionCreators({ getWarningsAsync: getWarningsAsync }, dispatch);
+	return bindActionCreators({ getCockpitAsync: getCockpitAsync }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatcherToProps)(DashboardWarnings);
+export default connect(mapStateToProps, mapDispatcherToProps)(CockpitTime);

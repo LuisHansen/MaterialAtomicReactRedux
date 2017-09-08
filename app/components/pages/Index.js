@@ -11,6 +11,7 @@ import Home from '../templates/Home'
 import Licenses from '../templates/Licenses'
 import Login from '../templates/Login'
 import Nature from '../templates/Nature'
+import Cockpit from '../templates/Cockpit'
 import Page from '../templates/pageTemplate'
 import Payments from '../templates/Payments'
 
@@ -33,6 +34,9 @@ function PageSwitcher(props) {
 		break;
 		case "Licenses":
 			return <Licenses />;
+		break;
+		case "Cockpit":
+			return <Cockpit />;
 		break;
 		case "Dashboard":
 			return <Dashboard />;

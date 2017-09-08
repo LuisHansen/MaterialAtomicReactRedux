@@ -60,6 +60,11 @@ const Menu = React.createClass({
 					</li>
 				}
 				{this.populateMenu(this)}
+				{ this.props.menu.style == "big" &&
+					<li className="menufooter">
+						<div><img src="/img/veritas_code_white.svg" alt="Veritas CoDE"/></div>
+					</li>
+				}
 			</ul>
 		</div>
 		);

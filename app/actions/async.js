@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch'
-import { login, getLicenses, fetchSummaryToday, getDrilldown, getWarnings, getFailures } from './index'
+import { login, getLicenses, fetchSummaryToday, getDrilldown, getWarnings, getFailures, getCockpit } from './index'
 import {reset} from 'redux-form'
 var consts = require('../consts/index');
 
@@ -62,6 +62,87 @@ const getDrilldownAsync = (date1, date2, token) => {
 
 				default:
 					dispatch(getDrilldown( { status: 'FAIL' } ));
+				break;
+			}
+		})
+	}
+}
+
+const getCockpitAsync = (date, token) => {
+	let data = {};
+	return function (dispatch) {
+		dispatch(getCockpit( { status: 'REQUESTING' } ));
+
+		return fetch(consts.thisUrl + consts.cockpitClients + "/" + date, {
+			method: 'GET',
+			headers: {
+				'Authorization': token
+			}
+		}).then(function(response) {
+			switch (response.status) {
+				case 200:
+					return response.json().then(function(json) {
+						data.clients = json; // Add to the data
+						return fetch(consts.thisUrl + consts.cockpitSpace + "/" + date, {
+							method: 'GET',
+							headers: {
+								'Authorization': token
+							}
+						}).then(function(response) {
+							switch (response.status) {
+								case 200:
+									return response.json().then(function(json) {
+										data.space = json; // Add to the data
+										return fetch(consts.thisUrl + consts.cockpitTime + "/" + date, {
+											method: 'GET',
+											headers: {
+												'Authorization': token
+											}
+										}).then(function(response) {
+											switch (response.status) {
+												case 200:
+													return response.json().then(function(json) {
+														data.time = json; // Add to the data
+														return fetch(consts.thisUrl + consts.cockpitErrors + "/" + date, {
+															method: 'GET',
+															headers: {
+																'Authorization': token
+															}
+														}).then(function(response) {
+															switch (response.status) {
+																case 200:
+																	return response.json().then(function(json) {
+																		data.errors = json;
+																		dispatch(getCockpit( { status: 'SUCCESS', data: data } ));
+																	})
+																break;
+
+																default:
+																	dispatch(getCockpit( { status: 'FAIL' } ));
+																break;
+															}
+														})
+													})
+												break;
+
+												default:
+													dispatch(getCockpit( { status: 'FAIL' } ));
+												break;
+											}
+										})
+									})
+								break;
+
+								default:
+									dispatch(getCockpit( { status: 'FAIL' } ));
+								break;
+							}
+						})
+					})
+				break;
+
+				default:
+					dispatch(getCockpit( { status: 'FAIL' } ));
 				break;
 			}
 		})
@@ -199,4 +280,6 @@ const tryFirstLoginAsync = (token) => {
 	}
 }
 
-export { loginAsync, tryFirstLoginAsync, getLicensesAsync, getSummaryAsync, getDrilldownAsync, getWarningsAsync, getFailuresAsync }
+export { loginAsync, tryFirstLoginAsync, getLicensesAsync,
+		getSummaryAsync, getDrilldownAsync, getWarningsAsync,
+		getFailuresAsync, getCockpitAsync }

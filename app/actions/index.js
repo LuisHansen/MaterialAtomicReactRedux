@@ -123,6 +123,14 @@ const getFailures = (payload) => {
 	}
 }
 
+const getCockpit = (payload) => {
+	return {
+		type: 'GET_COCKPIT',
+		status: payload.status,
+		data: payload.data
+	}
+}
+
 export { changeChartType, changeChartColors, menuClick, loadMenu, loadTableData,
 	applySettings, changeCompact, login, logout, fullscreen, init, getLicenses,
-	fetchSummaryToday, showAccount, getDrilldown, getWarnings, getFailures }
+	fetchSummaryToday, showAccount, getDrilldown, getWarnings, getFailures, getCockpit }
