@@ -7,7 +7,7 @@ var consts = require('../app/consts/index');
 router.route('/modules/auth/login')
 	/* POST /api/modules/auth/login */
 	.post(function(req, res, next) {
-		request.post(consts.baseUrl + '/api/modules/auth/login', { form: req.body }, function (err, httpResponse, body) {
+		request.post(consts.baseUrl + '/api/login', { form: req.body }, function (err, httpResponse, body) {
 			res.status(httpResponse.statusCode).send(JSON.parse(body))
 		});
 	})
@@ -15,7 +15,7 @@ router.route('/modules/auth/login')
 router.route('/modules/auth/token')
 	/* GET /api/modules/auth/token */
 	.get(function(req, res, next) {
-		request.get(consts.baseUrl + '/api/modules/auth/token', { headers: Object.assign(req.headers, { 'Accept-Encoding': 'application/json' }) }, function(err, httpResponse, body) {
+		request.get(consts.baseUrl + '/api/token', { headers: Object.assign(req.headers, { 'Accept-Encoding': 'application/json' }) }, function(err, httpResponse, body) {
 			res.status(httpResponse.statusCode).send(body)
 		});
 	})
