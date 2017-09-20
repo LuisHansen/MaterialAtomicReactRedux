@@ -14,16 +14,19 @@ import { bindActionCreators } from 'redux'
 const Home = React.createClass({
 	render() { return (
 		<div>
-			<Button click={() => this.props.changeChartType(this.props.graphs.type)}>Click me</Button>
-			<Icon>add</Icon>
-			<SummaryToday />
-			<Tooltip data_position="right" data_tooltip="I am tooltip"><IconButton icon="add">Icon button</IconButton></Tooltip>
-			<Spinner/>
-			<div className="row">
-				<div className="col s6">
-					<Graph id="grafico1" width="200" height="200" config={this.props.graphs}></Graph>
-				</div>
-			</div>
+			<h1>Welcome to Dashboard V3!</h1>
+		{
+			// <Button click={() => this.props.changeChartType(this.props.graphs.type)}>Click me</Button>
+			// <Icon>add</Icon>
+			// <SummaryToday />
+			// <Tooltip data_position="right" data_tooltip="I am tooltip"><IconButton icon="add">Icon button</IconButton></Tooltip>
+			// <Spinner/>
+			// <div className="row">
+			// 	<div className="col s6">
+			// 		<Graph id="grafico1" width="200" height="200" config={this.props.graphs}></Graph>
+			// 	</div>
+			// </div>
+		}
 		</div>
 		);
 	}

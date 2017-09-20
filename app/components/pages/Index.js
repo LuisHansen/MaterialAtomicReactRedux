@@ -23,9 +23,9 @@ function PageSwitcher(props) {
 		case "Payments":
 			return <Payments />;
 		break;
-		case "Nature":
-			return <Nature />;
-		break;
+		// case "Nature":
+		// 	return <Nature />;
+		// break;
 		case "Graphs":
 			return <Graphs />;
 		break;

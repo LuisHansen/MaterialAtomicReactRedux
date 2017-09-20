@@ -11,8 +11,8 @@ const store = createStore(
 	allReducers,
 	compose(applyMiddleware(
 		thunkMiddleware
-	),
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() // Remove to work anywhere
+	)
+	//window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() // Remove to work anywhere
 ));
 
 let patt = /@@/i;

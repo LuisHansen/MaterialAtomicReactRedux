@@ -1,5 +1,5 @@
 var commom = {
-	pages: [{title: "Home", template: "Home", icon:"home"}, {title: "Dashboard", template: "Dashboard", icon:"dashboard"}, {title: "Cockpit", template: "Cockpit", icon:"event_seat"}, {title: "Payments", template: "Payments", icon: "credit_card"}, {title: "Nature", template: "Nature", icon: "nature_people"}, {title: "Control Panel", template: "Graphs", icon: "insert_chart"}]
+	pages: [{title: "Home", template: "Home", icon:"home"}, {title: "Dashboard", template: "Dashboard", icon:"dashboard"}, {title: "Cockpit", template: "Cockpit", icon:"event_seat"}, {title: "Payments", template: "Payments", icon: "credit_card"}, {title: "Control Panel", template: "Graphs", icon: "insert_chart"}]
 }
 
 var admin = {

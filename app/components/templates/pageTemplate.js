@@ -10,7 +10,7 @@ import { applySettings, logout, fullscreen, init, loadMenu, showAccount } from '
 
 const Page = React.createClass({
 	componentWillMount() {
-		this.props.loadMenu(this.props.user.role);
+		this.props.loadMenu("ADMIN"); // Mudar API para retornar o user junto com o login
 		// Check stored settings
 		if (typeof(Storage) !== "undefined") {
 			this.props.applySettings(JSON.parse(localStorage.getItem("settings")));

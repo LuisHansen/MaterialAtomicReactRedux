@@ -6240,9 +6240,9 @@ exports.default = Spinner;
 
 
 var config = {
-	host: 'http://192.168.129.157:4040', //localhost:4040
+	host: 'http://169.57.131.86:4040', //localhost:4040
 	today: '03/10/2017', //new Date()
-	thisHost: 'http://localhost:3000' //'http://192.168.50.5:3000' //localhost:3000
+	thisHost: 'http://169.57.131.86:3000' //'http://192.168.50.5:3000' //localhost:3000
 };
 
 module.exports = config;
@@ -35912,9 +35912,9 @@ function PageSwitcher(props) {
 		case "Payments":
 			return _react2.default.createElement(_Payments2.default, null);
 			break;
-		case "Nature":
-			return _react2.default.createElement(_Nature2.default, null);
-			break;
+		// case "Nature":
+		// 	return <Nature />;
+		// break;
 		case "Graphs":
 			return _react2.default.createElement(_Graphs2.default, null);
 			break;
@@ -39540,42 +39540,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Home = _react2.default.createClass({
 	displayName: 'Home',
 	render: function render() {
-		var _this = this;
-
 		return _react2.default.createElement(
 			'div',
 			null,
 			_react2.default.createElement(
-				_button2.default,
-				{ click: function click() {
-						return _this.props.changeChartType(_this.props.graphs.type);
-					} },
-				'Click me'
-			),
-			_react2.default.createElement(
-				_icon2.default,
+				'h1',
 				null,
-				'add'
-			),
-			_react2.default.createElement(_summaryToday2.default, null),
-			_react2.default.createElement(
-				_tooltip2.default,
-				{ data_position: 'right', data_tooltip: 'I am tooltip' },
-				_react2.default.createElement(
-					_iconButton2.default,
-					{ icon: 'add' },
-					'Icon button'
-				)
-			),
-			_react2.default.createElement(_spinner2.default, null),
-			_react2.default.createElement(
-				'div',
-				{ className: 'row' },
-				_react2.default.createElement(
-					'div',
-					{ className: 'col s6' },
-					_react2.default.createElement(_graph2.default, { id: 'grafico1', width: '200', height: '200', config: this.props.graphs })
-				)
+				'Welcome to Dashboard V3!'
 			)
 		);
 	}
@@ -40107,7 +40078,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Page = _react2.default.createClass({
 	displayName: 'Page',
 	componentWillMount: function componentWillMount() {
-		this.props.loadMenu(this.props.user.role);
+		this.props.loadMenu("ADMIN"); // Mudar API para retornar o user junto com o login
 		// Check stored settings
 		if (typeof Storage !== "undefined") {
 			this.props.applySettings(JSON.parse(localStorage.getItem("settings")));
@@ -40279,7 +40250,8 @@ var _reactRedux = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _redux.createStore)(_reducers2.default, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() // Remove to work anywhere
+var store = (0, _redux.createStore)(_reducers2.default, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default)
+//window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() // Remove to work anywhere
 ));
 
 var patt = /@@/i;
@@ -40713,7 +40685,7 @@ exports.default = function () {
 };
 
 var commom = {
-	pages: [{ title: "Home", template: "Home", icon: "home" }, { title: "Dashboard", template: "Dashboard", icon: "dashboard" }, { title: "Cockpit", template: "Cockpit", icon: "event_seat" }, { title: "Payments", template: "Payments", icon: "credit_card" }, { title: "Nature", template: "Nature", icon: "nature_people" }, { title: "Control Panel", template: "Graphs", icon: "insert_chart" }]
+	pages: [{ title: "Home", template: "Home", icon: "home" }, { title: "Dashboard", template: "Dashboard", icon: "dashboard" }, { title: "Cockpit", template: "Cockpit", icon: "event_seat" }, { title: "Payments", template: "Payments", icon: "credit_card" }, { title: "Control Panel", template: "Graphs", icon: "insert_chart" }]
 };
 
 var admin = {
@@ -40757,7 +40729,7 @@ exports.default = function () {
 	return state;
 };
 
-var initial = {};
+var initial = { title: "Home", template: "Home", icon: "home" };
 
 /***/ }),
 /* 478 */
